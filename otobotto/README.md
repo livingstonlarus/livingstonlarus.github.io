@@ -158,24 +158,24 @@ The rapid evolution of underlying AI capabilities makes Ōtobotto not only incre
 
 ```mermaid
 flowchart TD
-    subgraph "Strategic Layer"
+    subgraph Strategic_Layer["Strategic Layer"]
         Vision["Project Vision/Mission"]
         Objectives["Strategic Objectives"]
         Epics["Epics/Features"]
     end
     
-    subgraph "Tactical Layer"
+    subgraph Tactical_Layer["Tactical Layer"]
         Stories["User Stories/Requirements"]
         Milestones["Milestones"]
     end
     
-    subgraph "Implementation Layer"
+    subgraph Implementation_Layer["Implementation Layer"]
         Tasks["Tasks"]
         Subtasks["Subtasks"]
         Tests["Test Cases"]
     end
     
-    subgraph "Execution Environment"
+    subgraph Execution_Environment["Execution Environment"]
         Agents["Agent Network"]
         Memory["Memory Systems"]
         Knowledge["Knowledge Base"]
@@ -196,15 +196,15 @@ flowchart TD
     Tasks <--> Agents
     Tests <--> Agents
     
-    subgraph "Human Integration"
+    subgraph Human_Integration["Human Integration"]
         HITL["Human-in-the-Loop"]
     end
     
+    
     HITL <--> Agents
-    HITL <--> Strategic Layer
     HITL <--> Milestones
+    HITL <--> Objectives
 ```
-
 ### 3.1 Strategic Fundamentals
 
 - **Vision and Mission Alignment**: Clear articulation of project goals driving all development decisions
@@ -302,14 +302,14 @@ Specialized AI agents with defined roles form the core workforce. This agent arc
 flowchart TD
     Orchestrator["Orchestration Layer"]
     
-    subgraph "Core Development Agents"
+    subgraph Core_Development_Agents["Core Development Agents"]
         Architect["Architect Agents"]
         Dev["Development Agents"]
         Test["Testing Agents"]
         Doc["Documentation Agents"]
     end
     
-    subgraph "Support Agents"
+    subgraph Support_Agents["Support Agents"]
         DevOps["DevOps Agents"]
         PM["Project Manager Agents"]
         QA["QA Agents"]
@@ -317,19 +317,19 @@ flowchart TD
         Analytics["Analytics Agents"]
     end
     
-    subgraph "Specialty Agents"
+    subgraph Specialty_Agents["Specialty Agents"]
         Security["Security Experts"]
         Performance["Performance Experts"]
         Domain["Domain Specialists"]
         Data["Data Engineers"]
     end
     
-    Orchestrator <--> Core Development Agents
-    Orchestrator <--> Support Agents
-    Orchestrator <--> Specialty Agents
+    Orchestrator <--> Core_Development_Agents
+    Orchestrator <--> Support_Agents
+    Orchestrator <--> Specialty_Agents
     
-    Core Development Agents <--> Support Agents
-    Core Development Agents <--> Specialty Agents
+    Core_Development_Agents <--> Support_Agents
+    Core_Development_Agents <--> Specialty_Agents
 ```
 
 ### 4.3 Knowledge Infrastructure
@@ -345,39 +345,39 @@ A robust knowledge acquisition and processing system that includes:
 
 ```mermaid
 flowchart TD
-    subgraph "Knowledge Acquisition"
+    subgraph Knowledge_Acquisition["Knowledge Acquisition"]
         WebCrawlers["Web Crawlers"]
         DocParsers["Document Parsers"]
         APIConnectors["API Connectors"]
         PrivateRepos["Private Repository Access"]
     end
     
-    subgraph "Knowledge Processing"
+    subgraph Knowledge_Processing["Knowledge Processing"]
         Chunking["Content Chunking"]
         Embedding["Embedding Generation"]
         Indexing["Vector Indexing"]
         Metadata["Metadata Extraction"]
     end
     
-    subgraph "Knowledge Storage"
+    subgraph Knowledge_Storage["Knowledge Storage"]
         VectorDB["Vector Databases"]
         MetadataDB["Metadata Store"]
         BlobStorage["Document Storage"]
     end
     
-    subgraph "Knowledge Retrieval"
+    subgraph Knowledge_Retrieval["Knowledge Retrieval"]
         QueryProcessor["Query Processing"]
         RelevanceRanking["Relevance Ranking"]
         ContextAssembly["Context Assembly"]
     end
     
-    Knowledge Acquisition --> Knowledge Processing
-    Knowledge Processing --> Knowledge Storage
-    Knowledge Storage --> Knowledge Retrieval
-    Knowledge Retrieval --> Agents["Agent Network"]
+    Knowledge_Acquisition --> Knowledge_Processing
+    Knowledge_Processing --> Knowledge_Storage
+    Knowledge_Storage --> Knowledge_Retrieval
+    Knowledge_Retrieval --> Agents["Agent Network"]
     
-    Users["Human Users"] --> Knowledge Acquisition
-    Users --> Knowledge Retrieval
+    Users["Human Users"] --> Knowledge_Acquisition
+    Users --> Knowledge_Retrieval
 ```
 
 #### 4.3.2 Hierarchical Memory System
@@ -390,36 +390,36 @@ A three-tiered memory architecture:
 
 ```mermaid
 flowchart TD
-    subgraph "Operational Memory"
+    subgraph Operational_Memory["Operational Memory"]
         MessageQueue["Message Queue"]
         ActiveContext["Active Context Windows"]
         WorkingState["Working State"]
         ShortTermCache["Short-term Cache"]
     end
     
-    subgraph "Project Memory"
+    subgraph Project_Memory["Project Memory"]
         GitRepo["Git Repository"]
         VectorDB["Vector Database"]
         DecisionLog["Decision Records"]
         PreferenceStore["Preference Store"]
     end
     
-    subgraph "Strategic Memory"
+    subgraph Strategic_Memory["Strategic Memory"]
         PatternLibrary["Pattern Library"]
         BestPractices["Best Practices"]
         DomainKnowledge["Domain Knowledge"]
         CrossProjectLearnings["Cross-Project Learnings"]
     end
     
-    Agent1["Agent 1"] <--> Operational Memory
-    Agent2["Agent 2"] <--> Operational Memory
-    Agent3["Agent 3"] <--> Operational Memory
+    Agent1["Agent 1"] <--> Operational_Memory
+    Agent2["Agent 2"] <--> Operational_Memory
+    Agent3["Agent 3"] <--> Operational_Memory
     
-    Operational Memory <--> Project Memory
-    Project Memory <--> Strategic Memory
+    Operational_Memory <--> Project_Memory
+    Project_Memory <--> Strategic_Memory
     
-    Human["Human-in-the-Loop"] <--> Project Memory
-    Human <--> Strategic Memory
+    Human["Human-in-the-Loop"] <--> Project_Memory
+    Human <--> Strategic_Memory
 ```
 
 #### 4.3.3 Regulatory Knowledge Base
@@ -443,14 +443,14 @@ Direct integration with version control systems:
 
 ```mermaid
 flowchart TD
-    subgraph "Git Workflow"
+    subgraph Git_Workflow["Git Workflow"]
         Main["Main Branch"]
         Dev["Development Branch"]
         Feature["Feature Branches"]
         PR["Pull Requests"]
     end
     
-    subgraph "Agent Activities"
+    subgraph Agent_Activities["Agent Activities"]
         TaskCreation["Task Creation"]
         CodeImplementation["Code Implementation"]
         Testing["Testing"]
@@ -467,7 +467,7 @@ flowchart TD
     Dev --> Documentation
     Documentation --> Main
     
-    subgraph "Human Oversight"
+    subgraph Human_Oversight["Human Oversight"]
         ApprovalGates["Approval Gates"]
         QualityChecks["Quality Checks"]
     end
@@ -487,19 +487,19 @@ Comprehensive test-driven development approach:
 
 ```mermaid
 flowchart TD
-    subgraph "Test Creation Phase"
+    subgraph Test_Creation_Phase["Test Creation Phase"]
         Requirements["Requirements Analysis"]
         ContractDesign["API/Contract Design"]
         TestSpec["Test Specification"]
         TestImpl["Test Implementation"]
     end
     
-    subgraph "Implementation Phase"
+    subgraph Implementation_Phase["Implementation Phase"]
         CodeImpl["Code Implementation"]
         RefactorOpt["Refactoring & Optimization"]
     end
     
-    subgraph "Verification Phase"
+    subgraph Verification_Phase["Verification Phase"]
         UnitTests["Unit Testing"]
         IntegrationTests["Integration Testing"]
         SystemTests["System Testing"]
@@ -508,7 +508,7 @@ flowchart TD
         SecurityTests["Security Testing"]
     end
     
-    subgraph "Continuous Verification"
+    subgraph Continuous_Verification["Continuous Verification"]
         CI["Continuous Integration"]
         CD["Continuous Deployment"]
         Monitoring["Production Monitoring"]
@@ -548,38 +548,38 @@ Infrastructure for long-term project support:
 
 ```mermaid
 flowchart TD
-    subgraph "Infrastructure Layer"
+    subgraph Infrastructure_Layer["Infrastructure Layer"]
         Containers["Containerization"]
         Messaging["Messaging Systems"]
         VectorDatabases["Vector Databases"]
         ExecutionEnv["Execution Environments"]
     end
     
-    subgraph "Orchestration Layer"
+    subgraph Orchestration_Layer["Orchestration Layer"]
         TaskAllocation["Task Allocation"]
         DependencyMgmt["Dependency Management"]
         ResourceOpt["Resource Optimization"]
         AgentCoord["Agent Coordination"]
     end
     
-    subgraph "Agent Layer"
+    subgraph Agent_Layer["Agent Layer"]
         DevAgents["Development Agents"]
         TestAgents["Testing Agents"]
         SpecialtyAgents["Specialty Agents"]
         SupportAgents["Support Agents"]
     end
     
-    subgraph "Integration Layer"
+    subgraph Integration_Layer["Integration Layer"]
         GitIntegration["Git Integration"]
         APIConnectors["API Connectors"]
         DevTools["Development Tools"]
         DeploymentTools["Deployment Tools"]
     end
     
-    Infrastructure Layer --> Orchestration Layer
-    Orchestration Layer --> Agent Layer
-    Agent Layer --> Integration Layer
-    Integration Layer --> External["External Systems"]
+    Infrastructure_Layer --> Orchestration_Layer
+    Orchestration_Layer --> Agent_Layer
+    Agent_Layer --> Integration_Layer
+    Integration_Layer --> External["External Systems"]
 ```
 
 ### 5.1 Containerization and Execution Environments
