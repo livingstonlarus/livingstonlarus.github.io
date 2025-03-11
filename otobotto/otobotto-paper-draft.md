@@ -9,20 +9,20 @@ jonathan@livingstonlarus.com
 This paper presents Otobotto, a proposed autonomous AI swarm architecture designed for enterprise-grade software development. While advancements in Large Language Models (LLMs) have fueled the rise of AI coding systems and specialized agent frameworks, industry leaders like Bret Taylor observe that we remain in an "Autopilot Era," where AI primarily augments human developers rather than enabling true autonomy [26]. We propose that Otobotto could address the significant gap between current capabilities and enterprise-grade development requirements through three key innovations: (1) a decentralized swarm coordination protocol that would enable true parallel development instead of sequential agent handoffs, (2) a hierarchical memory system with adaptive token optimization that could overcome context limitations in complex codebases, and (3) enterprise-grade verification through Git-native integration and test-driven development. Unlike systems such as Runic [15] and MetaGPT that use orchestrator-specialist models or sequential workflows, Otobotto would employ a dynamic, peer-based swarm architecture with specialized agents collaborating concurrently. This approach could enable continuous development, cross-verification, and integration while potentially reducing token consumption compared to naive implementations. This paper provides a theoretical framework for autonomous software engineering that addresses the complex requirements of enterprise environments and represents a potential step toward Taylor's vision of the "Autonomous Era" of software development.
 
 ## CCS Concepts
-• Computing methodologies → Artificial intelligence → Knowledge representation and reasoning (I.2.4)
-• Computing methodologies → Artificial intelligence → Planning and scheduling (I.2.8)
-• Computing methodologies → Artificial intelligence → Multi-agent planning (I.2.11)
-• Computing methodologies → Multi-agent systems → Multi-agent architectures (I.2.11)
-• Computing methodologies → Distributed artificial intelligence → Multi-agent systems (I.2.11)
-• Software and its engineering → Software organization and properties → Software system structures → Microservices (D.2.11)
-• Software and its engineering → Software creation and management → Software development process management → Agile software development (D.2.9)
-• Software and its engineering → Software creation and management → Software development process management → Software development productivity (D.2.9)
-• Software and its engineering → Software creation and management → Software development techniques → Cloud computing (D.2.m)
-• Software and its engineering → Software creation and management → Software verification and validation → Software defect analysis (D.2.4)
-• Software and its engineering → Software creation and management → Software verification and validation → Software testing and debugging (D.2.5)
-• Software and its engineering → Software creation and management → Maintaining software (D.2.7)
-• Human-centered computing → Collaborative and social computing systems and tools (H.5.3)
-• Security and privacy → Software and application security → Software security engineering (D.4.6)
+* Computing methodologies → Artificial intelligence → Knowledge representation and reasoning (I.2.4)
+* Computing methodologies → Artificial intelligence → Planning and scheduling (I.2.8)
+* Computing methodologies → Artificial intelligence → Multi-agent planning (I.2.11)
+* Computing methodologies → Multi-agent systems → Multi-agent architectures (I.2.11)
+* Computing methodologies → Distributed artificial intelligence → Multi-agent systems (I.2.11)
+* Software and its engineering → Software organization and properties → Software system structures → Microservices (D.2.11)
+* Software and its engineering → Software creation and management → Software development process management → Agile software development (D.2.9)
+* Software and its engineering → Software creation and management → Software development process management → Software development productivity (D.2.9)
+* Software and its engineering → Software creation and management → Software development techniques → Cloud computing (D.2.m)
+* Software and its engineering → Software creation and management → Software verification and validation → Software defect analysis (D.2.4)
+* Software and its engineering → Software creation and management → Software verification and validation → Software testing and debugging (D.2.5)
+* Software and its engineering → Software creation and management → Maintaining software (D.2.7)
+* Human-centered computing → Collaborative and social computing systems and tools (H.5.3)
+* Security and privacy → Software and application security → Software security engineering (D.4.6)
 
 ## Keywords
 Autonomous software development, AI swarm architecture, Multi-agent systems, Enterprise software engineering, Test-driven development, Git-native workflows, Human-in-the-loop AI, Software agent coordination, Memory hierarchy systems, Progressive autonomy, Large language models, Code generation
@@ -71,7 +71,11 @@ Early code assistants like GitHub Copilot [6] and Amazon CodeWhisperer provide i
 
 In the second generation, task-specific autonomous coding agents have emerged. Sourcegraph's Enterprise AI agents [29] demonstrate success in enterprise environments for specific tasks like test generation, code review, and dependency updates. Quinn Slack, Sourcegraph CEO, distinguishes these "horizontal agents" (focused on specific tasks) from "vertical agents" (attempting end-to-end development), noting that horizontal approaches have proven more practical in enterprise settings. These systems excel at well-defined, repetitive tasks but lack the broader context awareness needed for comprehensive development. Specific examples include agents for automated test execution [37] and dependency installation [38].
 
-The third generation attempts greater autonomy through multi-agent systems and specialized frameworks. Leading examples include Devin AI from Cognition, CodiumAI's Codiumate, and SuperAGI's SuperCoder 2.0 [27]. These systems aim to handle more complex tasks and maintain longer-term context. Agent frameworks like E2B with AgentKit [28] and AutoGen [11] enable the creation of customized coding agents with specialized tools for filesystem operations, terminal commands, and code execution. SuperAGI identifies the "Last Mile Problem" as a key challenge, requiring AI agents to iterate through multiple stages of planning, development, and debugging to achieve working solutions. Recent research explores using reinforcement learning to improve LLM reasoning for software engineering tasks [32] and applying LLMs to automate aspects of penetration testing [33].
+The third generation attempts greater autonomy through multi-agent systems and specialized frameworks. Leading examples include Devin AI from Cognition, CodiumAI's Codiumate, and SuperAGI's SuperCoder 2.0 [27]. These systems aim to handle more complex tasks and maintain longer-term context. Agent frameworks like E2B with AgentKit [28] and AutoGen [45] enable the creation of customized coding agents with specialized tools for filesystem operations, terminal commands, and code execution.
+
+Wu et al.'s AutoGen framework is particularly notable for enabling multi-agent conversational patterns that allow LLM-based agents to converse with each other to accomplish tasks [45]. This approach has shown effectiveness across various domains including mathematics, coding, and question answering, demonstrating the potential of collaborative agent interactions. Similarly, Tang et al.'s AutoAgent framework proposes a fully-automated, zero-code approach that enables the creation and deployment of LLM agents using natural language alone [46], potentially broadening accessibility to non-programmers.
+
+SuperAGI identifies the "Last Mile Problem" as a key challenge, requiring AI agents to iterate through multiple stages of planning, development, and debugging to achieve working solutions. Recent research explores using reinforcement learning to improve LLM reasoning for software engineering tasks [32], applying LLMs to automate aspects of penetration testing [33], and developing neurobiologically-inspired systems that emulate human cognitive development for code generation [47].
 
 Multi-agent AI systems distribute tasks among specialized components, theoretically enabling more complex problem-solving than single-agent approaches. AutoGPT [11] and BabyAGI [12] demonstrated the potential of autonomous agents to perform sequential tasks without direct human intervention, while systems like LangChain [13] and CrewAI [14] provide frameworks for coordinating multiple LLM-based agents. However, as Randy Zhang from Cisco Systems notes, even simple multi-agent conversations encounter technical limitations where "token consumption compounds exponentially, not linearly" [30], forcing most implementations to avoid true multi-agent coordination. Research is also exploring how to best structure human-AI collaboration in software teams [39].
 
@@ -350,15 +354,23 @@ flowchart TD
 
 To address the challenge of maintaining context across different timeframes, Otobotto would implement a three-tiered hierarchical memory architecture. This system would be designed to efficiently manage information across different temporal scales, ensuring that critical knowledge is maintained and accessible when needed.
 
-Operational memory would provide short-term storage for real-time agent communication and context, allowing agents to maintain awareness of ongoing activities and recent developments. This would enable effective collaboration during active development sessions. Project memory would serve as mid-term storage for project-specific knowledge and decisions, maintaining a record of architectural choices, implemented features, and other information relevant to the current project. This would help ensure consistency across the development lifecycle, even as different agents work on different aspects of the project.
+This approach draws inspiration from recent neurobiologically-inspired systems for code generation. Li et al.'s Cogito framework [47] demonstrates how a memory system modeled after the hippocampus can enable progressive knowledge acquisition and problem-solving capabilities. Their research shows that mimicking human cognitive development patterns can substantially improve an AI system's ability to retrieve relevant information for analogous tasks and support the accumulation of programming knowledge over time.
 
-Strategic memory would function as long-term storage for patterns, best practices, and cross-project learnings, building up a knowledge base that could be applied to future projects. This would allow the system to improve over time, learning from successes and challenges across multiple projects.
+Applying these principles to Otobotto, the system would implement:
 
-By segmenting memory into these three tiers, the system could potentially manage the context more efficiently than approaches that treat all information equally. This could help address the exponential token consumption issue identified by Zhang [30] and enable more effective long-term learning.
+**Operational memory** would provide short-term storage for real-time agent communication and context, allowing agents to maintain awareness of ongoing activities and recent developments. This would enable effective collaboration during active development sessions. **Project memory** would serve as mid-term storage for project-specific knowledge and decisions, maintaining a record of architectural choices, implemented features, and other information relevant to the current project. This would help ensure consistency across the development lifecycle, even as different agents work on different aspects of the project.
 
-### 4.4 Git Integration Layer
+**Strategic memory** would function as long-term storage for patterns, best practices, and cross-project learnings, building up a knowledge base that could be applied to future projects. This would allow the system to improve over time, learning from successes and challenges across multiple projects.
+
+By segmenting memory into these three tiers and incorporating principles from cognitive development research, the system could potentially manage the context more efficiently than approaches that treat all information equally. This could help address the exponential token consumption issue identified by Zhang [30] and enable more effective long-term learning.
+
+### 4.4 Git Integration and Agile Model-Driven Development
 
 A distinctive feature of the proposed Otobotto system would be its direct integration with version control systems, embedding software engineering best practices into the development process. This Git-native approach would differ from existing agent systems that typically treat version control as an external process.
+
+This integration would be complemented by concepts from agile model-driven development. Recent research by Sadik et al. [49] demonstrates how GPT-4 can empower model-driven development by auto-generating complete, deployment-ready software artifacts with particular emphasis on agility when models change or need deployment in different programming languages. Their work shows that incorporating constraints like Object Constraints Language (OCL) and ontologies leads to more structured, maintainable code that facilitates testing and long-term maintenance.
+
+By combining Git-native workflows with model-driven approaches, Otobotto would implement:
 
 Automated branch management would enable parallel development across multiple features, allowing the system to maintain separate branches for different areas of work and preventing conflicts between concurrent development efforts. Pull request lifecycle automation would streamline code review and integration, managing the creation, review, and merging of pull requests as code moves through the development process.
 
@@ -502,7 +514,9 @@ These security and compliance measures would be essential for enterprise adoptio
 
 While autonomous operation is a key goal, any practical enterprise software development system must effectively integrate human expertise and oversight. The proposed Otobotto system would implement a balanced approach to human oversight that aims to maximize autonomy while maintaining quality through thoughtful integration of human guidance.
 
-Interaction scheduling would demonstrate awareness of human availability across time zones and work schedules, ensuring that requests for input happen at appropriate times. This approach would acknowledge the reality that humans have limited availability and would structure the system's operations to accommodate these constraints. Decision queuing would enable non-blocking accumulation of items requiring human input, allowing the system to continue productive work while waiting for human decisions on non-blocking items.
+Recent research by Takerngsaksiri et al. [48] on Human-In-the-Loop Software Development Agents (HULA) provides valuable insights for Otobotto's design. Their framework, deployed within Atlassian JIRA, integrates human feedback at each stage of the automated development process. HULA demonstrated that an AI planner agent and AI coding agent working cooperatively with human agents could significantly reduce development time while maintaining code quality. Their findings on enterprise deployment highlight both the benefits and practical challenges of human-AI collaboration systems.
+
+Building on these insights, Otobotto would implement interaction scheduling with awareness of human availability across time zones and work schedules, ensuring that requests for input happen at appropriate times. This approach would acknowledge the reality that humans have limited availability and would structure the system's operations to accommodate these constraints. Decision queuing would enable non-blocking accumulation of items requiring human input, allowing the system to continue productive work while waiting for human decisions on non-blocking items.
 
 Confidence scoring would provide automated assessment of when human review is necessary, potentially reducing unnecessary interruptions while ensuring appropriate oversight for uncertain or high-risk decisions. Bundle optimization would group related decisions to minimize interruptions, increasing human efficiency by allowing multiple related items to be addressed in a single review session.
 
@@ -755,3 +769,13 @@ The author would like to thank the reviewers for their valuable feedback and sug
 [43] RPG-fan, "Cline Recursive Chain of Thought System (CRCT)," GitHub repository, 2024. [Online]. Available: https://github.com/RPG-fan/Cline-Recursive-Chain-of-Thought-System-CRCT-
 
 [44] M. A. Langford, S. Zilberman, and B. Cheng, "Anunnaki: A Modular Framework for Developing Trusted Artificial Intelligence," ACM Transactions on Autonomous and Adaptive Systems, vol. 19, no. 3, pp. 1-34, 2024.
+
+[45] Q. Wu, G. Bansal, J. Zhang, Y. Wu, B. Li, E. Zhu, L. Jiang, X. Zhang, S. Zhang, J. Liu, A. H. Awadallah, R. W. White, D. Burger, and C. Wang, "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation," arXiv preprint arXiv:2308.08155, 2023.
+
+[46] J. Tang, T. Fan, and C. Huang, "AutoAgent: A Fully-Automated and Zero-Code Framework for LLM Agents," arXiv preprint arXiv:2502.05957, 2025.
+
+[47] Y. Li, J. Li, Q. Wang, M. Yang, H. Kong, and S. Wang, "Cogito, ergo sum: A Neurobiologically-Inspired Cognition-Memory-Growth System for Code Generation," arXiv preprint arXiv:2501.18653, 2025.
+
+[48] W. Takerngsaksiri, J. Pasuksmit, P. Thongtanunam, C. Tantithamthavorn, R. Zhang, F. Jiang, J. Li, E. Cook, K. Chen, and M. Wu, "Human-In-the-Loop Software Development Agents," In Proceedings of the 47th International Conference on Software Engineering: Software Engineering in Practice (ICSE-SEIP '25), April 26–May 4, 2025, Ottawa, ON, Canada.
+
+[49] A. R. Sadik, S. Brulin, and M. Olhofer, "Coding by Design: GPT-4 empowers Agile Model Driven Development," arXiv preprint arXiv:2310.04304, 2023.
