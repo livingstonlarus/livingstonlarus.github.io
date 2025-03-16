@@ -4,7 +4,7 @@
 
 **Figure 1: Ōtobotto hierarchical project breakdown and execution environment.** Higher-level goals (Vision, Objectives, Epics) flow down to specific tasks and tests, which are executed by the agent network. The agent swarm (bottom right) interacts with memory systems and version control. Human oversight (HITL) plugs in at strategic decision points (e.g., refining Objectives or reviewing Milestones) and can intervene in the agent loop as needed.
 
-[DIAGRAM]
+[DIAGRAM-Fig-1]
 
 In this layered breakdown, strategic planning starts with a **Vision** (the overall mission or product vision for the software) and is refined into concrete **Objectives** that capture high-level goals aligned with business value. These are further decomposed into **Epics/Features** – major feature sets or modules. At the tactical level, Epics yield detailed **User Stories** or requirements that define behavior from an end-user perspective, along with acceptance criteria. The implementation layer takes stories and generates specific **Tasks** (work items) and finer-grained **Subtasks** needed to realize each story. In parallel, dedicated agents also generate **Test Cases** for stories and tasks, embodying a test-driven development approach (tests are planned alongside or even before code).
 
@@ -64,7 +64,7 @@ The RAG system comprises multiple stages, illustrated conceptually in Fig. 2 as 
 
 **Figure 2: Knowledge retrieval pipeline in Ōtobotto.** Documents and data are ingested and processed into vector embeddings and indexes. Agents’ queries go through a retrieval process to fetch relevant context (code snippets, docs, etc.) which is then fed into their prompts.
 
-[DIAGRAM]
+[DIAGRAM-Fig-2]
 
 - **Knowledge Acquisition:** This is the ingestion phase. Specialized crawler agents or processes gather information from various sources: scanning the web or corporate intranet for relevant API docs, importing existing project documentation or design specs, and accessing private repositories or databases that contain legacy code or requirements. For example, a “Docs Crawler” might fetch the official documentation of a framework the project is using, while an internal data connector might pull in a company’s coding guidelines. All these raw texts form the knowledge corpus.
 
@@ -94,7 +94,7 @@ Fig. 3 illustrates these memory tiers and their relationships:
 
 **Figure 3: Hierarchical memory in Ōtobotto.** Operational memory (real-time context) interfaces directly with active agents. Project memory provides persistent storage of code and decisions for the current project. Strategic memory holds long-term accumulated knowledge and patterns that span projects. Humans can interface with project and strategic memory as well.
 
-[DIAGRAM]
+[DIAGRAM-Fig-3]
 
 In this diagram, multiple agents (Agent1, Agent2, Agent3) connect to the Operational Memory, indicating that they share a common short-term context (such as the current state of a file they are collaboratively editing, or a chat-like message board of recent coordination messages). Operational memory in turn syncs with Project Memory – for instance, when a file is finalized in operational memory, it’s written to the Git repository in project memory. The Project Memory and Strategic Memory exchange information selectively: patterns or generalized lessons from the project might be abstracted and stored in Strategic Memory, and conversely, Strategic Memory might provide templates or checklists to the Project Memory at project outset (e.g., a compliance checklist for a finance app).
 
@@ -116,7 +116,7 @@ Fig. 4 depicts a simplified view of this workflow with key stages and artifacts:
 
 **Figure 4: Git-based development and CI/CD workflow in Ōtobotto.** Agents perform task creation, code implementation, testing, code review, documentation, etc., corresponding to typical stages in a development pipeline. Code flows through feature branches to dev to main, with human oversight gates for approval and quality checks.
 
-[DIAGRAM]
+[DIAGRAM-Fig-4]
 
 In this schematic, the flow from **Task Creation** to **Main Branch** shows the path of development. For example, when a new user story is ready to implement, an agent (or orchestrator) creates a task and a corresponding feature branch. Code is implemented on that branch, tests are run; a Pull Request is opened to merge into the Dev branch; after code review and any approval gates, it’s merged, triggering documentation updates and eventually merging to Main for release.
 
@@ -146,7 +146,7 @@ We can illustrate the testing & verification cycle in a simplified flow (Fig. 5)
 
 **Figure 5: Simplified test-driven development cycle in Ōtobotto’s swarm.** Requirements lead to test specifications; code is implemented to satisfy tests; after all stages of testing and verification (unit, integration, etc.) pass, the feature is deployed, and monitoring feeds back issues for future cycles.
 
-[DIAGRAM]
+[DIAGRAM-Fig-5]
 
 This diagram condenses the process: from Requirements, the agents create test specifications (and design outlines); then coding happens to make those tests pass, with refactoring if needed to improve code; the “All Tests Pass” stage signifies that unit, integration, UI, performance, and security tests (as applicable) are all green; then the feature is deployed and monitored. The feedback loop indicates that any issues discovered in production (or new requirements as a result of seeing the feature in action) are fed back into the next iteration of requirements.
 
