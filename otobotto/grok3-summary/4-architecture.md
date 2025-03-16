@@ -1,0 +1,7 @@
+# Architecture Overview
+
+Ōtobotto’s architecture is designed for scalability, autonomy, and transparency, beginning with meticulous **initial planning and design**. Before development starts, it documents project goals, establishes KPI tracking (using tools like Grafana or Looker Studio as examples), and aligns with ESG principles—akin to the groundwork in major infrastructure projects.
+
+Building on its predecessor, Runic, which pioneered dynamic agent spawning but relied on manual prompts, Ōtobotto fully automates this process. It dynamically spawns and manages specialized agents, overcoming Runic’s limitations. The orchestrator employs **adaptive track management**, splitting large or lagging tracks into smaller, specialized sub-tracks or reorganizing them to optimize progress.
+
+A standout feature is the **KPI-driven dashboard** (integrating tools like Grafana, Looker Studio, or Tableau—examples, not an exhaustive list), offering real-time observability into swarm operations. It tracks progress, monitors budgets, and provides granular control, alongside a chat interface with the orchestrator and detailed audit trails. This ensures transparency and alignment with enterprise needs, making Ōtobotto a robust, sustainable solution for complex software development.
