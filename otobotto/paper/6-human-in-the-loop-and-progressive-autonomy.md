@@ -12,6 +12,38 @@ We adopt an **adaptive human-in-the-loop (HITL) strategy**, which dynamically ad
 
 - The orchestrator uses **confidence scoring** to decide when to involve humans. Each agent, when it produces an output (like a code commit or a design decision), attaches a confidence level. This could be based on test coverage (if all tests passed, confidence is high; if some tests are missing, lower confidence) or the agent's own self-assessment (LLMs can output an estimated probability of correctness). For any output below a confidence threshold or any decision labeled high-impact, the orchestrator routes it to a human. High-confidence, low-impact changes can be executed autonomously.
 
+#### 6.1.1 Sophisticated Confidence Scoring Mechanism
+
+The confidence scoring mechanism is a critical component that differentiates Ōtobotto from other AI systems. Unlike simplistic approaches that rely solely on language model probabilities, Ōtobotto employs a sophisticated multi-factor confidence assessment:
+
+**Sources of Confidence Data:**
+- **Model Probability Analysis**: Base confidence derived from language model token prediction probabilities, but normalized and calibrated based on empirical performance data
+- **Test Coverage and Results**: Higher confidence for changes with comprehensive test coverage and all tests passing
+- **Static Analysis Metrics**: Code quality scores, complexity metrics, and static analysis warnings directly influence confidence
+- **Historical Performance**: Past success rates on similar tasks by the same agent configuration
+- **Domain-Specific Verification**: Specialized verification for areas like security, compliance, or performance-critical code
+
+**Confidence Calculation Process:**
+1. Each specialized agent produces its own confidence score for decisions in its domain
+2. Weighted aggregation combines these scores based on the nature of the task
+3. Confidence modifiers are applied based on risk factors:
+   - Critical systems receive automatic confidence penalties
+   - Novel approaches without precedent in the codebase are scored more conservatively
+   - Changes affecting security-sensitive areas receive additional scrutiny
+
+**Adaptive Confidence Thresholds:**
+The system maintains separate confidence thresholds for different types of decisions based on:
+- Project stage (stricter during early stages, potentially more lenient later)
+- Component criticality (higher standards for core infrastructure)
+- Past human feedback (if humans consistently approve a certain type of change, thresholds adjust)
+
+**Concrete Examples:**
+- A routine logging change with 98% model confidence, full test coverage, and no security impact might receive a "High" confidence rating and proceed without human review
+- A payment processing algorithm change with 92% model confidence would still be marked "Medium" due to its critical nature, triggering human review
+- An architectural decision affecting multiple components might be marked "Low" confidence despite high model confidence because of its far-reaching implications
+
+This nuanced approach ensures that confidence scores reflect real-world reliability rather than just mathematical certainty, creating a system that can accurately determine when human expertise is truly needed versus when autonomous operation is appropriate.
+
 - We implement a **Decision Queue** for human reviews. Instead of interrupting humans with every minor question, agents queue up non-urgent decisions. For example, five minor UI text changes could be bundled into one human review request. The orchestrator optimizes these interactions (much like batching in an organization to avoid constantly bothering a manager with trivial approvals).
 
   **Example Scenario**: During the development of a dashboard component, several UI refinements are identified in parallel:
