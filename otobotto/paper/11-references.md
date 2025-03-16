@@ -25,5 +25,9 @@
 [23] Y. Dang et al., “Multi-Agent Code Development for AI-Human Teaming,” arXiv preprint arXiv:2311.01234, 2023.  
 [24] K. Yao et al., “CodeTOM: An AI Assistant for Test-Oriented Development,” arXiv preprint arXiv:2305.01243, 2023.  
 [25] D. S. Brett et al., “Collaborative Intelligence in Code Generation: Designing with Human-AI Teams,” in *Proc. of the 2023 CHI Conference on Human Factors in Computing Systems*, 2023, Paper No. 564.  
-[26] A. B. Litecky and F. E. A. P. Cremonini, “AI Developers: A New Breed of Software Engineers?” *IEEE Software*, vol. 40, no. 2, pp. 70–77, 2023.  
+[26] A. B. Litecky and F. E. A. P. Cremonini, “AI Developers: A New Breed of Software Engineers?” *IEEE Software*, vol. 40, no. 2, pp. 70–77, 2023.
 [27] S. Takerngsaksiri et al., “HULA: A Human-in-the-Loop Agent Architecture for Cooperative AI in Software Development,” arXiv preprint arXiv:2310.11011, 2023.
+[28] Sourcegraph, “Enterprise Impact of AI Coding Agents,” 2025. [Online Video]. Available: https://www.youtube.com/watch?v=rHzdbPpkzcU
+[29] M. A. Langford, S. Zilberman, and B. Cheng, “Anunnaki: A Modular Framework for Developing Trusted Artificial Intelligence,” *ACM Transactions on Autonomous and Adaptive Systems*, vol. 19, no. 3, Article 17, pp. 1–34, Sep. 2024, doi: 10.1145/3649453.
+[30] C. Poly, “Replicating Cursor’s Agent Mode with E2B and AgentKit,” 2025. [Online Blog Post]. Available: https://e2b.dev/blog/replicating-cursors-agent-mode-with-e2b-and-agentkit
+[31] R. Zhang and S. Aggarwal, “Building AI Agents to Automate Enterprise-Level Software Development: A Practical Perspective,” 2024. [Online Blog Post]. Available: https://medium.com/@randyhzhang/building-ai-agents-to-automate-enterprise-level-software-development-a-practical-perspective-cef0c40d80e7
