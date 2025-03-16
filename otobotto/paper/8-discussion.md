@@ -61,4 +61,3 @@ The future might hold a scenario where a product manager speaks in natural langu
 We must also consider the social implication: will this technology augment the workforce or lead to reduced need for programmers? Likely, demand for software will increase (it already outstrips supply), so even with such tools, skilled engineers will remain in demand, focusing on more and more ambitious problems.
 
 In conclusion, Ōtobotto and systems like it could usher in a new era in software engineering, but realizing this potential will require not just technical innovation, but also adaptation of our practices, education, and culture around software development.
-

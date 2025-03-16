@@ -4,51 +4,7 @@
 
 **Figure 1: Ōtobotto hierarchical project breakdown and execution environment.** Higher-level goals (Vision, Objectives, Epics) flow down to specific tasks and tests, which are executed by the agent network. The agent swarm (bottom right) interacts with memory systems and version control. Human oversight (HITL) plugs in at strategic decision points (e.g., refining Objectives or reviewing Milestones) and can intervene in the agent loop as needed.
 
-```pikchr
-box "Vision/Mission" fit
-move down 1.2
-box "Strategic Objectives" fit
-arrow down from previous.box.s to last box.n
-box "Epics / Features" fit
-arrow down from previous.box.s to last box.n
-box "User Stories" fit
-arrow down from previous.box.s to last box.n
-box "Tasks" fit
-arrow down from previous.box.s to last box.n
-box "Subtasks" fit
-arrow down from previous.box.s to last box.n
-
-# Place Tests branching off from Stories
-move to (User Stories.e + (2,0))
-box "Test Cases" fit
-arrow from User Stories.e right 50% then down to last.box.n
-
-# Place Agents to the right of Tasks
-move to (Tasks.e + (4,0))
-circle radius 0.5 "Agents" "Network"
-# Connect Tasks and Tests to Agents
-arrow <-> from Tasks.e to Agents.w
-arrow <- from Test Cases.s to Agents.w
-
-# Memory and Knowledge near Agents
-move to (Agents.n + (0,2))
-circle radius 0.4 "Memory"
-arrow <-> from Agents.n to Memory.s
-move to (Agents.ne + (2,0.5))
-circle radius 0.4 "Knowledge Base"
-arrow <-> from Agents.ne to Knowledge Base.w
-move to (Agents.se + (2,-0.5))
-circle radius 0.4 "Version Control"
-arrow <-> from Agents.se to Version Control.w
-
-# Human-in-the-loop and Milestones/Objectives
-move to (Strategic Objectives.w + (-3,0))
-circle radius 0.5 "Human-in-the-Loop"
-move to (User Stories.w + (-3,0))
-box "Milestones" fit
-arrow <-> from Human-in-the-Loop.e to Strategic Objectives.w
-arrow <-> from Human-in-the-Loop.se to Milestones.w
-```
+[DIAGRAM]
 
 In this layered breakdown, strategic planning starts with a **Vision** (the overall mission or product vision for the software) and is refined into concrete **Objectives** that capture high-level goals aligned with business value. These are further decomposed into **Epics/Features** – major feature sets or modules. At the tactical level, Epics yield detailed **User Stories** or requirements that define behavior from an end-user perspective, along with acceptance criteria. The implementation layer takes stories and generates specific **Tasks** (work items) and finer-grained **Subtasks** needed to realize each story. In parallel, dedicated agents also generate **Test Cases** for stories and tasks, embodying a test-driven development approach (tests are planned alongside or even before code).
 
@@ -108,26 +64,7 @@ The RAG system comprises multiple stages, illustrated conceptually in Fig. 2 as 
 
 **Figure 2: Knowledge retrieval pipeline in Ōtobotto.** Documents and data are ingested and processed into vector embeddings and indexes. Agents’ queries go through a retrieval process to fetch relevant context (code snippets, docs, etc.) which is then fed into their prompts.
 
-```pikchr
-# Define pipeline boxes
-box "Knowledge\nAcquisition" fit at (0,0)
-box "Knowledge\nProcessing" fit at (3,0)
-box "Knowledge\nStorage" fit at (6,0)
-box "Knowledge\nRetrieval" fit at (9,0)
-circle radius 0.5 "Agent\nNetwork" at (12,0)
-
-
-# Arrows between stages
-arrow -> from Knowledge Acquisition.e to Knowledge Processing.w
-arrow -> from Knowledge Processing.e to Knowledge Storage.w
-arrow -> from Knowledge Storage.e to Knowledge Retrieval.w
-arrow -> from Knowledge Retrieval.e to Agent Network.w
-
-# Human user interactions
-circle radius 0.4 "Human User" at (-2, 1)
-arrow -> from Human User.e to Knowledge Acquisition.nw "Provide docs"
-arrow -> from Human User.e to Knowledge Retrieval.sw "Query"
-```
+[DIAGRAM]
 
 - **Knowledge Acquisition:** This is the ingestion phase. Specialized crawler agents or processes gather information from various sources: scanning the web or corporate intranet for relevant API docs, importing existing project documentation or design specs, and accessing private repositories or databases that contain legacy code or requirements. For example, a “Docs Crawler” might fetch the official documentation of a framework the project is using, while an internal data connector might pull in a company’s coding guidelines. All these raw texts form the knowledge corpus.
 
@@ -157,31 +94,7 @@ Fig. 3 illustrates these memory tiers and their relationships:
 
 **Figure 3: Hierarchical memory in Ōtobotto.** Operational memory (real-time context) interfaces directly with active agents. Project memory provides persistent storage of code and decisions for the current project. Strategic memory holds long-term accumulated knowledge and patterns that span projects. Humans can interface with project and strategic memory as well.
 
-```pikchr
-# Memory tiers
-box "Operational Memory" fit at (0,0)
-box "Project Memory" fit at (4,0)
-box "Strategic Memory" fit at (8,0)
-arrow <-> from Operational Memory.e to Project Memory.w
-arrow <-> from Project Memory.e to Strategic Memory.w
-
-# Agents interacting with Operational Memory
-move to (0,-2.5)
-circle radius 0.4 "Agent 1"
-move to (1,-2.5)
-circle radius 0.4 "Agent 2"
-move to (-1,-2.5)
-circle radius 0.4 "Agent 3"
-arrow <-> from Agent 1.n to Operational Memory.s
-arrow <-> from Agent 2.n to Operational Memory.s
-arrow <-> from Agent 3.n to Operational Memory.s
-
-# Human interacting with Project and Strategic Memory
-move to (4, 2)
-circle radius 0.4 "Human"
-arrow <-> from Human.s to Project Memory.n
-arrow <-> from Human.ne to Strategic Memory.nw
-```
+[DIAGRAM]
 
 In this diagram, multiple agents (Agent1, Agent2, Agent3) connect to the Operational Memory, indicating that they share a common short-term context (such as the current state of a file they are collaboratively editing, or a chat-like message board of recent coordination messages). Operational memory in turn syncs with Project Memory – for instance, when a file is finalized in operational memory, it’s written to the Git repository in project memory. The Project Memory and Strategic Memory exchange information selectively: patterns or generalized lessons from the project might be abstracted and stored in Strategic Memory, and conversely, Strategic Memory might provide templates or checklists to the Project Memory at project outset (e.g., a compliance checklist for a finance app).
 
@@ -203,56 +116,7 @@ Fig. 4 depicts a simplified view of this workflow with key stages and artifacts:
 
 **Figure 4: Git-based development and CI/CD workflow in Ōtobotto.** Agents perform task creation, code implementation, testing, code review, documentation, etc., corresponding to typical stages in a development pipeline. Code flows through feature branches to dev to main, with human oversight gates for approval and quality checks.
 
-```pikchr
-# Workflow stages
-box "Task\nCreation" fit at (0,0)
-arrow right 50%
-box "Feature\nBranch" fit
-arrow right 50%
-box "Code\nImplementation" fit
-arrow right 50%
-box "Testing" fit
-arrow right 50%
-box "Pull\nRequest" fit
-arrow right 50%
-box "Code\nReview" fit
-arrow right 50%
-box "Dev\nBranch" fit
-arrow right 50%
-box "Documentation" fit
-arrow right 50%
-box "Main\nBranch" fit
-
-# Human oversight
-move to (8, 2)
-circle radius 0.4 "Approval Gate"
-# Workflow stages
-box "Task\nCreation" fit at (0,0)
-arrow right 50%
-box "Feature\nBranch" fit
-arrow right 50%
-box "Code\nImplementation" fit
-arrow right 50%
-box "Testing" fit
-arrow right 50%
-box "Pull\nRequest" fit
-arrow right 50%
-box "Code\nReview" fit
-arrow right 50%
-box "Dev\nBranch" fit
-arrow right 50%
-box "Documentation" fit
-arrow right 50%
-box "Main\nBranch" fit
-
-# Human oversight
-move to (8, 2)
-circle radius 0.4 "Approval Gate"
-arrow <- from Pull Request.n to Approval Gate.s
-move to (10,-2)
-circle radius 0.4 "Quality Check"
-arrow <- from Dev Branch.s to Quality Check.n
-```
+[DIAGRAM]
 
 In this schematic, the flow from **Task Creation** to **Main Branch** shows the path of development. For example, when a new user story is ready to implement, an agent (or orchestrator) creates a task and a corresponding feature branch. Code is implemented on that branch, tests are run; a Pull Request is opened to merge into the Dev branch; after code review and any approval gates, it’s merged, triggering documentation updates and eventually merging to Main for release.
 
@@ -282,18 +146,7 @@ We can illustrate the testing & verification cycle in a simplified flow (Fig. 5)
 
 **Figure 5: Simplified test-driven development cycle in Ōtobotto’s swarm.** Requirements lead to test specifications; code is implemented to satisfy tests; after all stages of testing and verification (unit, integration, etc.) pass, the feature is deployed, and monitoring feeds back issues for future cycles.
 
-```pikchr
-circle radius 0.5 "Requirements"
-arrow right 50%
-circle radius 0.5 "Test Spec\n& Design"
-arrow right 50%
-circle radius 0.5 "Code &\nRefactor"
-arrow right 50%
-circle radius 0.5 "All Tests\nPass"
-arrow right 50%
-circle radius 0.5 "Deploy &\nMonitor"
-arrow curved -> from Deploy &\nMonitor.e to Requirements.e above "Feedback"
-```
+[DIAGRAM]
 
 This diagram condenses the process: from Requirements, the agents create test specifications (and design outlines); then coding happens to make those tests pass, with refactoring if needed to improve code; the “All Tests Pass” stage signifies that unit, integration, UI, performance, and security tests (as applicable) are all green; then the feature is deployed and monitored. The feedback loop indicates that any issues discovered in production (or new requirements as a result of seeing the feature in action) are fed back into the next iteration of requirements.
 
