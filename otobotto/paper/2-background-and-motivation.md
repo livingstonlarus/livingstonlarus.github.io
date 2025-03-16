@@ -8,7 +8,33 @@ Automating parts of the development process with AI has been proposed as a way t
 
 ### 2.2 Limitations of Current AI Development Approaches
 
-While LLMs have shown promise in code generation, several limitations prevent them from fully addressing enterprise development needs. **Context window constraints** in many models mean they cannot "see" the entire codebase or full project history at once, making it hard to maintain architectural consistency or recall distant dependencies. The lack of **persistent long-term memory** across sessions leads to discontinuity – an AI might forget rationale discussed earlier, leading to redundant or contradictory code. Existing multi-agent systems like Runic implemented basic agent spawning but required manual orchestration of specialized agents. Our experiments with Runic revealed significant overhead in Kubernetes pod management when scaling agents, leading to the QStash implementation in subsequent tracks. Current multi-agent coding demos (e.g. AutoGPT, BabyAGI) have typically been sequential or narrow in scope; they struggle to coordinate multiple aspects of a complex project simultaneously. In these systems, often one agent generates tasks and waits while another executes them, which is parallel only in a coarse sense but not a true swarm working concurrently. This can lead to inefficiencies and missed opportunities for agents to help or verify each other's work in real-time.
+While LLMs have shown promise in code generation, several critical limitations prevent them from fully addressing enterprise development needs:
+
+1. **Context Window Constraints**: Most models cannot "see" the entire codebase or full project history at once, making it hard to maintain architectural consistency or recall distant dependencies. Even with expanded windows of 100K+ tokens, the "lost-in-the-middle" phenomenon causes important details to be overlooked when analyzing large codebases, hampering effective development on enterprise-scale systems.
+
+2. **Lack of Sophisticated Memory Systems**: Current systems exhibit several memory-related deficiencies:
+   - **Rudimentary file-based memory** without vector storage or semantic search capabilities, limiting efficient retrieval of relevant context
+   - **No hierarchical organization** of information across different time horizons (operational, project, strategic)
+   - **Poor memory retention across sessions** leading to discontinuity – an AI might forget rationale discussed earlier, resulting in redundant or contradictory code
+   - **Inefficient token utilization** with frequent reloading of context that could be more efficiently stored and retrieved
+
+3. **Sequential Agent Limitations**: Early multi-agent coding systems (e.g., AutoGPT, BabyAGI) operate primarily sequentially rather than concurrently:
+   - Systems often employ a **single orchestrator bottleneck** where one agent must coordinate all activities
+   - **Rigid role pipelines** (like in MetaGPT) enforce strict sequential handoffs rather than fluid parallel collaboration
+   - **Basic agent spawning** requiring manual orchestration of specialized agents (as in Runic)
+   - **Kubernetes pod management overhead** when scaling multiple agents, as observed in our Runic experiments
+
+4. **Insufficient Quality Assurance Integration**: Existing autonomous coding systems treat testing and verification as afterthoughts rather than fundamental principles:
+   - **Limited test-driven development** practices built into the development workflow
+   - **Reactive rather than proactive security analysis** that struggles to identify vulnerabilities during development
+   - **Inadequate formalized verification** for critical components requiring high reliability
+
+5. **Lack of True Git-Native Workflows**: Most systems treat version control as an external process rather than deeply integrated into the architecture:
+   - **No automated branch management** for parallel feature development
+   - **Limited pull request lifecycle automation** for streamlined review processes
+   - **Weak integration with CI/CD pipelines** for continuous verification and deployment
+
+Our experiments with Runic revealed many of these limitations firsthand. While it implemented basic agent spawning and a memory bank, Runic still relied on sequential coordination and lacked the sophisticated memory architecture needed for enterprise-scale development. In these systems, often one agent generates tasks and waits while another executes them, which is parallel only in a coarse sense but not a true swarm working concurrently. This leads to inefficiencies and missed opportunities for agents to help or verify each other's work in real-time.
 
 Another key limitation is **verification and quality assurance**. An AI may generate syntactically correct code that passes basic tests but still harbor subtle bugs, security vulnerabilities, or fail to meet certain requirements – especially if those checks are not integrated into the generation process. Without an integrated testing and review mechanism, AI-generated code might accelerate development at the expense of reliability. For enterprise adoption, this trade-off is unacceptable; any automated system must produce code that meets or exceeds the quality of human engineers using established best practices.
 

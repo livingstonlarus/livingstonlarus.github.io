@@ -14,7 +14,28 @@ We adopt an **adaptive human-in-the-loop (HITL) strategy**, which dynamically ad
 
 - We implement a **Decision Queue** for human reviews. Instead of interrupting humans with every minor question, agents queue up non-urgent decisions. For example, five minor UI text changes could be bundled into one human review request. The orchestrator optimizes these interactions (much like batching in an organization to avoid constantly bothering a manager with trivial approvals).
 
-- The system classifies decisions by urgency. "High confidence & low impact" decisions are done autonomously by the orchestrator. "Medium" ones go into the batch queue for periodic human review. "Low confidence or high impact" issues trigger immediate human attention. This logic was illustrated in the design of our sequence diagram (Figure 6).
+  **Example Scenario**: During the development of a dashboard component, several UI refinements are identified in parallel:
+  1. Aligning buttons on the settings panel (cosmetic change)
+  2. Changing label text on three form fields for clarity
+  3. Adding hover tooltips to dashboard widgets
+  4. Adjusting spacing between table columns
+  5. Standardizing icon sizes across the interface
+
+  Rather than requesting human approval for each change individually (which would require five separate interactions), the system bundles these into a single review session with before/after screenshots. The human reviewer can approve all changes at once or selectively modify certain elements, significantly reducing interaction overhead while maintaining quality control.
+
+- The system implements sophisticated **Bundle Optimization** to intelligently group related decisions. This optimization operates across several dimensions:
+  - **Functional Grouping**: Changes affecting the same subsystem or feature are bundled together
+  - **Impact Assessment**: Changes with similar risk profiles are grouped
+  - **Expertise Matching**: Decisions are routed to humans with relevant domain knowledge
+  - **Temporal Alignment**: Non-critical decisions are accumulated until optimal interaction times (e.g., morning check-ins or scheduled review sessions)
+  - **Context Continuity**: Related changes are presented together with shared context to minimize cognitive load
+
+- The system classifies decisions by urgency and confidence. "High confidence & low impact" decisions are done autonomously by the orchestrator. "Medium" ones go into the batch queue for periodic human review. "Low confidence or high impact" issues trigger immediate human attention. This logic was illustrated in the design of our sequence diagram (Figure 6).
+
+  **Concrete Examples**:
+  - **High Confidence & Low Impact** (Autonomous): Adding standardized error handling to internal functions; updating documentation comments; refactoring for performance while maintaining identical behavior; adding unit tests that don't modify functionality
+  - **Medium Confidence/Impact** (Queued): UI layout changes; adding non-critical features; modifying database schemas in development environments; extending an existing API with new parameters
+  - **Low Confidence or High Impact** (Immediate Attention): Architecture changes; security-related modifications; changes to authentication flows; modifications to billing or payment systems; introducing new third-party dependencies; deployment to production environments
 
 Using this adaptive HITL strategy, the human operators can gradually shift from micro-managing the AI to overseeing it at a high level. Early on, they might be approving every merge; later, they might just review weekly reports or only critical changes. This builds trust: the human sees the AI making good decisions under supervision, and can measure its reliability before granting more autonomy.
 
@@ -24,14 +45,21 @@ It's worth noting that HITL is not just about catching errors – it's also abou
 
 The end goal is for Ōtobotto to operate with minimal human intervention on routine tasks, with humans focusing on only the high-level guidance or very tricky problems. We therefore implement a **progressive autonomy model** that explicitly tracks the system's autonomy level and criteria for advancing that autonomy.
 
-We define several "autonomy levels" akin to driving automation levels. For example:
+Unlike current AI coding assistants which operate in a binary mode (either requiring constant human oversight like GitHub Copilot or attempting complete autonomy like some experimental agents), Ōtobotto introduces a granular approach to autonomous operation inspired by the automotive industry's levels of driving automation. This carefully calibrated progression builds trust incrementally while maintaining quality standards.
 
-- Level 0: AI provides suggestions, but humans do all actual decisions (Ōtobotto in pure advisory mode, like an advanced Copilot).
-- Level 1: AI executes tasks but every action is approved by a human (full HITL on everything).
-- Level 2: AI autonomously handles low-risk tasks, human approves high-risk.
-- Level 3: AI handles most tasks, human spot-checks and intervenes on request.
-- Level 4: AI handles all but exceptional cases (almost fully autonomous, with rare human input).
-- Level 5: Fully autonomous, no human involvement needed (with humans only setting initial goals).
+We define several "autonomy levels" that provide a clear roadmap for transitioning from human-led development to AI-led development:
+
+- **Level 0: Advisory Mode** — AI provides suggestions, but humans make all actual decisions (similar to an advanced Copilot). The AI can analyze code, suggest improvements, and draft implementations, but every change requires explicit human approval and execution. This represents the current state of most AI coding tools.
+
+- **Level 1: Supervised Execution** — AI executes tasks but every action is approved by a human before being committed. The AI can implement entire features, run tests, and prepare documentation, but each step requires human confirmation. This provides a safety net while demonstrating the AI's capabilities.
+
+- **Level 2: Conditional Autonomy** — AI autonomously handles low-risk tasks (routine tests, documentation updates, simple bug fixes) while humans approve high-risk operations (architecture changes, security-critical code, deployment to production). At this level, development velocity increases significantly as routine work proceeds without bottlenecks.
+
+- **Level 3: Monitored Autonomy** — AI handles most tasks independently, with humans spot-checking work through periodic reviews and intervening only when requested by the AI or when monitoring detects anomalies. The human role shifts toward oversight and strategic direction rather than tactical implementation.
+
+- **Level 4: High Autonomy** — AI handles all but exceptional cases, operating almost fully autonomously with rare human input. Human developers become "operators" who manage the AI system rather than writing code directly, focusing on high-level requirements and edge cases that the AI flags for attention.
+
+- **Level 5: Full Autonomy** — Fully autonomous operation with no human involvement beyond setting initial goals and accepting deliverables. While theoretically possible, this level would likely be reserved for non-critical systems or those with formal verification guarantees.
 
 Initially, the system might start at Level 1. As it builds a track record (say, achieving 95% of tasks without human corrections for a sustained period), it moves to Level 2, and so on. We encode rules for this progression: metrics like the frequency of human overrides, number of bugs found in production, etc., feed into a confidence score for autonomy. When above a threshold, the orchestrator can propose moving up a level (with human concurrence if desired).
 
