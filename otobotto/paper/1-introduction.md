@@ -47,27 +47,27 @@ From an operational perspective, Ōtobotto balances automation with **adaptive h
 
 To provide a clearer understanding of Ōtobotto's positioning, we offer a detailed comparison with existing coding agents and orchestration systems, including but not limited to:
 
-- **Code Completion Tools** (e.g., GitHub Copilot, Amazon CodeWhisperer):
+- **Code Completion Tools** (examples include, but are not limited to, GitHub Copilot, Amazon CodeWhisperer):
   - *Strengths*: Strong at context-aware code generation within a single file or function; integrate well with existing workflows.
   - *Limitations*: Limited to snippet-level assistance; no planning capability; require constant human direction and oversight.
   - *User sentiment*: Generally positive for increasing productivity in routine coding tasks, but users report frustration with the need to verify every suggestion and inability to understand project-wide contexts.
 
-- **Scaffolding-Focused Agents** (e.g., Bolt.new):
+- **Scaffolding-Focused Agents** (examples include, but are not limited to, Bolt.new):
   - *Strengths*: Excel at rapidly generating project structures and initial code from high-level descriptions.
   - *Limitations*: Often create "skeleton" code that requires substantial human refinement; struggle with complex business logic and integrations.
   - *Market positioning*: Aimed at rapid prototyping and exploration rather than production-grade development.
 
-- **Framework Orchestrators** (e.g., LangChain, AutoGen):
+- **Framework Orchestrators** (examples include, but are not limited to, LangChain, AutoGen):
   - *Strengths*: Provide flexible abstractions for connecting AI components; enable custom agent creation.
   - *Limitations*: Require substantial technical expertise to configure; focus on agent communication rather than software engineering practices.
   - *User sentiment*: Developers appreciate the flexibility but cite steep learning curves and maintenance challenges for complex pipelines.
 
-- **IDE-Integrated Agents** (e.g., Cursor, Cline):
+- **IDE-Integrated Agents** (examples include, but are not limited to, Cursor, Cline):
   - *Strengths*: Deep integration with development environments; context-aware assistance.
   - *Limitations*: Primarily operate in human-initiated, request-response patterns; limited autonomy and cross-module awareness.
   - *Market positioning*: Enhanced productivity tools for individual developers rather than team-scale orchestration systems.
 
-- **Cloud Development Environments** (e.g., Copilot in Codespaces, Replit):
+- **Cloud Development Environments** (examples include, but are not limited to, Copilot in Codespaces, Replit):
   - *Strengths*: Combine AI assistance with infrastructure management; reduce setup friction.
   - *Limitations*: Usually tied to specific platforms; limited coordination across multiple developers or components.
   - *User sentiment*: Appreciated for low-friction onboarding, but enterprise users report concerns about vendor lock-in and customization options.
@@ -78,6 +78,6 @@ This comparative analysis reveals that Ōtobotto targets a "blue ocean" opportun
 
 ### 1.2 Enterprise Focus and Compliance
 
-Ōtobotto is specifically tailored for complex enterprise software environments where traditional approaches struggle with scale and complexity. The system provides robust support for diverse legacy and modern technology stacks, and it **integrates with enterprise development tooling and workflows** (including but not limited to GitHub/GitLab, CI/CD pipelines such as Jenkins or CircleCI, and issue trackers like Jira or Azure DevOps). Compliance with industry-specific regulations is built into the core architecture – for instance, domain expert agents (Section 4.2) can enforce standards for healthcare (HIPAA), finance (PCI-DSS), and many other regulated sectors as part of their role.
+Ōtobotto is specifically tailored for complex enterprise software environments where traditional approaches struggle with scale and complexity. The system provides robust support for diverse legacy and modern technology stacks, and it **integrates with enterprise development tooling and workflows**. This includes, but is certainly not limited to, version control systems (such as GitHub, GitLab, Bitbucket), CI/CD pipelines (such as Jenkins, CircleCI, GitHub Actions, GitLab CI), and issue tracking platforms (such as Jira, Azure DevOps, Linear, Asana). Compliance with industry-specific regulations is built into the core architecture – for instance, domain expert agents (Section 4.2) can enforce standards for healthcare (HIPAA), finance (PCI-DSS), and many other regulated sectors as part of their role.
 
-By design, Ōtobotto emphasizes **vendor independence** and portability: it is model-agnostic and can incorporate different AI models (from providers such as OpenAI, Anthropic, Google, or open-source alternatives like Llama, Mistral, and others) ensuring organizations are not locked into a single provider. All data and knowledge are stored in open formats and repositories, so that human developers can inspect, audit, or even take over the project if needed without being tied to a proprietary system. These features are critical for enterprise adoption, as they reduce the barriers to integrating an AI swarm into existing development processes, and address common concerns around security, compliance, and maintainability of AI-generated code.
+By design, Ōtobotto emphasizes **vendor independence** and portability: it is model-agnostic and can incorporate different AI models from a wide range of providers. These may include, but are certainly not limited to, commercial providers (such as OpenAI, Anthropic, Google, Microsoft, Meta, Cohere) or open-source alternatives (such as Llama, Mistral, Falcon, Gemma, and many others that continue to emerge in this rapidly evolving field). This approach ensures organizations are not locked into a single provider. All data and knowledge are stored in open formats and repositories, so that human developers can inspect, audit, or even take over the project if needed without being tied to a proprietary system. These features are critical for enterprise adoption, as they reduce the barriers to integrating an AI swarm into existing development processes, and address common concerns around security, compliance, and maintainability of AI-generated code.
