@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
     subgraph SingleAgent["Traditional Single-Agent Approach"]
         direction TB
@@ -35,3 +36,4 @@ flowchart LR
     
     classDef agentNode fill:#f9f,stroke:#333,stroke-width:1px;
     class A1,A2,A3,A4 agentNode;
+```

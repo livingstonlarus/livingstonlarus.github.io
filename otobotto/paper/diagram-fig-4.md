@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     subgraph Git_Workflow["Git Workflow"]
         Main["Main Branch"]
@@ -30,3 +31,4 @@ flowchart TD
     
     PR --> ApprovalGates
     Dev --> QualityChecks
+```

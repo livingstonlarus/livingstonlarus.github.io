@@ -1,3 +1,4 @@
+```mermaid
 sequenceDiagram
     participant H as Human
     participant O as Orchestrator
@@ -21,3 +22,4 @@ sequenceDiagram
     end
     
     A->>O: Continue execution
+```

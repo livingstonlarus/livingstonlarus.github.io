@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     Orchestrator["Orchestration Layer"]
     
@@ -29,3 +30,4 @@ flowchart TD
     
     Core_Development_Agents <--> Support_Agents
     Core_Development_Agents <--> Specialty_Agents
+```

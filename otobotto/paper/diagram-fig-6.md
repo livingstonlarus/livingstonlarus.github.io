@@ -1,3 +1,4 @@
+```mermaid
 sequenceDiagram
     participant User as Stakeholder
     participant Planner as Planning Agent
@@ -26,3 +27,4 @@ sequenceDiagram
     deactivate Coder
     Planner->>User: Deliver completed feature & report
     deactivate Planner
+```

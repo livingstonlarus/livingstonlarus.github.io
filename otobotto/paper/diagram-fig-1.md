@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     subgraph Strategic_Layer["Strategic Layer"]
         Vision["Project Vision/Mission"]
@@ -44,3 +45,4 @@ flowchart TD
     HITL <--> Agents
     HITL <--> Milestones
     HITL <--> Objectives
+```

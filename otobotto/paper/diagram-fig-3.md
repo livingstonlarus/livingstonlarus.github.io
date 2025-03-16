@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     subgraph Knowledge_Acquisition["Knowledge Acquisition"]
         WebCrawlers["Web Crawlers"]
@@ -32,3 +33,4 @@ flowchart TD
     
     Users["Human Users"] --> Knowledge_Acquisition
     Users --> Knowledge_Retrieval
+```
