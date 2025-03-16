@@ -1,5 +1,15 @@
 ## 9. Future Work
 
+Our roadmap for Ōtobotto includes three key evolutionary paths:
+
+1. **Recursive Self-Improvement**: Implementing meta-cognitive layers where Ōtobotto analyzes its own performance metrics and architecture to propose optimizations. This paper itself will serve as the initial project brief for the first self-modification iteration, creating an experimental track where the system works to improve its own architecture.
+
+2. **Advanced Swarm Dynamics**: Developing more sophisticated inter-agent negotiation protocols and market-based mechanisms for resource allocation. This includes reputation systems for agents and evolutionary selection of effective prompt strategies.
+
+3. **Enterprise Scaling**: Building cluster-level orchestration for distributed agent swarms across cloud providers. This will incorporate our lessons from the Runic/Kubernetes experiments into a dedicated infrastructure management layer, enabling thousand-agent deployments with automatic resource scaling.
+
+We are particularly excited about the recursive potential - as the system improves itself, it could generate new research insights that feed back into both its operational capabilities and our theoretical understanding of AI-driven development.
+
 The concept of Ōtobotto opens numerous avenues for further research and development. Beyond the scope of what we have implemented or discussed, we identify several promising directions to extend and enhance the system:
 
 1. **Agent Specialization Research:** Determining the optimal granularity and boundaries for agent roles remains an open question. Future work could involve experimenting with different sets of specialist agents and how their responsibilities are partitioned. For example, should there be separate agents for front-end vs. back-end vs. database, or one agent handling all “coding”? Understanding the most effective division of labor for different project types will inform how to configure the swarm for maximal efficiency and minimal conflict. Additionally, learning algorithms could be applied to dynamically adjust roles—perhaps an agent could learn to “spin off” subtasks to new ephemeral agents if needed, effectively self-organizing its specialization structure. This could lead to adaptive swarm compositions that change as the project evolves (e.g., ramp up a UI team when entering a UI-heavy phase).

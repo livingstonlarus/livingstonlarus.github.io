@@ -18,7 +18,7 @@ At the heart of Ōtobotto is the **Orchestration Layer**, which serves as the co
 
 Concretely, the Orchestration Layer consists of: (a) an **Orchestrator Agent** (often a specialized LLM like an advanced planning model) that interprets project objectives and current status to create or adjust a project plan; (b) a set of coordination mechanisms like event queues, task boards, and messaging channels that agents use to signal completion of tasks or request input; and (c) a global “clock” or cycle system that synchronizes rounds of planning and integration (though agents operate asynchronously for the most part, periodic sync points ensure consistency, much like sprint boundaries in Agile).
 
-The orchestrator agent reads the high-level project specification (vision, objectives, user stories) and breaks it down into tasks and subtasks that can be assigned to specialist agents. It continually updates a task graph or backlog. Unlike a naive scheduler, the orchestrator in Ōtobotto can reprioritize or spawn new tasks dynamically if new requirements emerge or if tests reveal issues. It also monitors the overall progress and health of the project – for example, if it notices that several tasks are blocked waiting for a certain module, it can allocate more agents to resolve that dependency.
+The orchestrator agent reads the high-level project specification (vision, objectives, user stories) and breaks it down into tracks and subtasks that can be assigned to specialist agents. It continually updates a dynamic task graph, reorganizing tracks as needed - splitting large tracks into specialized sub-tracks when complexity increases, merging tracks when opportunities for consolidation arise, or creating new tracks for emerging requirements. The orchestrator monitors overall progress and project health through metrics like code quality scores and task completion rates. When bottlenecks emerge - such as multiple tasks blocked on a dependency - it can allocate additional agents or spawn new specialist roles. This adaptive tracking enables the swarm to maintain optimal parallelism while preventing cognitive overload.
 
 A critical function of the orchestration layer is to manage **dependencies and knowledge flow**. When one agent produces an output (say code for module X), the orchestrator makes sure that other agents (like testing or integration agents) are aware of this new output and act on it (run tests, integrate into build, etc.). It routes information: a testing agent’s bug report is passed to the coding agent responsible for that component; a documentation agent’s query about an API spec can be forwarded to the architect agent who designed it. In sum, the orchestrator ensures the swarm acts in a coordinated, goal-directed manner rather than as isolated AI agents.
 
@@ -105,6 +105,16 @@ The hierarchical memory thus addresses the **continuity challenge** mentioned in
 #### 4.3.3 Regulatory Knowledge Base
 
 *(Note: due to space, a detailed description of industry-specific regulatory compliance knowledge – e.g., financial regulations, healthcare standards – has been abridged. Ōtobotto’s Domain Expert agents (Section 4.2) tap into a regulatory knowledge base to ensure all code meets relevant legal and policy requirements. This knowledge base is maintained as part of Strategic Memory and includes templates and checklists for standards like GDPR, HIPAA, PCI-DSS, etc., which the system automatically applies during development.)*
+
+The **Ōtobotto Dashboard** provides real-time observability into swarm operations, featuring:
+- Live progress tracking across all tracks with burn-down charts
+- Detailed audit trails of agent decisions and tool usage
+- Interactive visualization of agent communication patterns
+- Granular permission controls for human oversight roles
+- Budget monitoring and resource allocation metrics
+- Instant project reconfiguration through updated briefs
+
+This dashboard enables human supervisors to maintain strategic control while allowing AI autonomy at tactical levels. The system's recursive capabilities allow Ōtobotto to analyze its own performance metrics and propose architectural improvements, creating a self-optimizing development ecosystem.
 
 ### 4.4 Git Integration and Agile Workflow
 
