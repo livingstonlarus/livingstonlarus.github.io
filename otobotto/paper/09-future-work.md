@@ -6,7 +6,7 @@ Our roadmap for Ōtobotto includes three key evolutionary paths:
 
 2. **Advanced Swarm Dynamics**: Developing more sophisticated inter-agent negotiation protocols and market-based mechanisms for resource allocation. This includes reputation systems for agents and evolutionary selection of effective prompt strategies.
 
-3. **Enterprise Scaling**: Building cluster-level orchestration for distributed agent swarms across cloud providers. This will incorporate our lessons from the Runic/Kubernetes experiments into a dedicated infrastructure management layer, enabling thousand-agent deployments with automatic resource scaling.
+3. **Enterprise Scaling**: Building cluster-level orchestration for distributed agent swarms across cloud providers. This will incorporate our lessons from the Runic experiment (which included building a Kubernetes deployment client as one of the project tracks) into a dedicated infrastructure management layer, enabling thousand-agent deployments with automatic resource scaling.
 
 We are particularly excited about the recursive potential - as the system improves itself, it could generate new research insights that feed back into both its operational capabilities and our theoretical understanding of AI-driven development.
 
