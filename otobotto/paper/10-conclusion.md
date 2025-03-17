@@ -24,6 +24,8 @@ Looking forward, we believe frameworks like the proposed Otobotto architecture w
 
 We invite the software engineering community – researchers and practitioners alike – to explore this vision further. Otobotto is ambitious yet feasible, and its development and deployment will undoubtedly yield lessons to refine the approach. Through collaborative effort and open experimentation, we can advance toward a future where human developers and AI swarms work side by side to build software that is more reliable, efficient, and maintainable than ever before.
 
+“*The most powerful technologies are the ones that empower others.*” “*The programming language is human. Everybody in the world is now a programmer. This is the miracle of AI.*” --Jensen Huang
+
 ## Acknowledgments
 
 The author would like to thank colleagues and reviewers for their valuable feedback and suggestions that helped improve this paper. In particular, discussions with members of the open-source AI engineering community and early adopters of multi-agent coding frameworks have significantly influenced the direction of this work.
