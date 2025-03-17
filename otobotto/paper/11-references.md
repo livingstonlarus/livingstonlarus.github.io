@@ -31,3 +31,4 @@
 [29] M. A. Langford, S. Zilberman, and B. Cheng, “Anunnaki: A Modular Framework for Developing Trusted Artificial Intelligence,” *ACM Transactions on Autonomous and Adaptive Systems*, vol. 19, no. 3, Article 17, pp. 1–34, Sep. 2024, doi: 10.1145/3649453.
 [30] C. Poly, “Replicating Cursor’s Agent Mode with E2B and AgentKit,” 2025. [Online Blog Post]. Available: https://e2b.dev/blog/replicating-cursors-agent-mode-with-e2b-and-agentkit
 [31] R. Zhang and S. Aggarwal, “Building AI Agents to Automate Enterprise-Level Software Development: A Practical Perspective,” 2024. [Online Blog Post]. Available: https://medium.com/@randyhzhang/building-ai-agents-to-automate-enterprise-level-software-development-a-practical-perspective-cef0c40d80e7
+[32] J. Métillon, "Runic: A lightweight framework for parallel development with multiple AI agents." 2025. [Online]. Available: https://github.com/livingstonlarus/runic

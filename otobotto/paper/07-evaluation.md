@@ -42,7 +42,7 @@ These considerations ensure our evaluation plan isn't just about raw metrics in 
 
 ### 7.3 Preliminary Experiment: Runic-Based Prototype
 
-To gain early insight into the feasibility of Otobotto's approach, we conducted a preliminary experiment using **Runic**, a precursor framework to Otobotto, in a controlled environment. Runic was developed by the author of this paper as an initial exploration into multi-agent software development systems. It is important to emphasize that Runic is a significantly simplified prototype that implements only a subset of Otobotto's envisioned capabilities. While Runic provided valuable insights, it lacks most of the sophisticated features described in previous sections for the full Otobotto vision.
+To gain early insight into the feasibility of Otobotto's approach, we conducted a preliminary experiment using **Runic** [32], a precursor framework to Otobotto, in a controlled environment. Runic was developed by the author of this paper as an initial exploration into multi-agent software development systems. It is important to emphasize that Runic is a significantly simplified prototype that implements only a subset of Otobotto's envisioned capabilities. While Runic provided valuable insights, it lacks most of the sophisticated features described in previous sections for the full Otobotto vision.
 
 Runic implemented a basic orchestrator-specialist model with a central coordinator and a limited pool of specialist agents—fundamentally different from Otobotto's decentralized peer-based approach. It featured only a rudimentary file-based memory system without the hierarchical structure or adaptive token optimization planned for Otobotto. Runic also required manual agent spawning mechanisms rather than the automated, dynamic agent creation envisioned for Otobotto. The limitations encountered during Runic's development—particularly around sequential coordination bottlenecks, memory architecture scalability issues, and cumbersome manual orchestration—directly informed and motivated Otobotto's more advanced design principles. These practical challenges with Runic reinforced the need for Otobotto's peer-based swarm design, sophisticated memory hierarchy, and automated agent spawning capabilities.
 
@@ -54,21 +54,23 @@ While Roo is normally used for a single orchestrator and one assistant agent, we
 
 For the AI models, we utilized two state-of-the-art LLMs via API:
 
--   **Anthropic's Claude Instant v3.7 ("Sonnet" mode)** as the Orchestrator agent. This model has an ~200k token context window and produces a chain-of-thought styled output ("Sonnet Thinking") which we found useful for transparency. Using OpenRouter's proxy, we bypassed strict rate limits, allowing the orchestrator to continuously generate plans and read/write large context from the shared files.
+-   **Anthropic's Claude 3.7 Sonnet** as the Orchestrator agent. This model has a 200k token context window and produces a chain-of-thought styled output in "Thinking" mode which we found useful for transparency. Using OpenRouter's proxy, we bypassed strict rate limits, allowing the orchestrator to continuously generate plans and read/write large context from the shared files. Cost can be significant, with rates of $3/M input tokens and $15/M output tokens as of when the experiment was conducted.
 
--   **Google Gemini 2 Pro (experimental)** as the Specialist coding agent(s). This model, with an up to 2M token context, was run in a "thinking" mode that outputs its reasoning steps while coding. We accessed Gemini's API directly (since at the time OpenRouter did not support this model) to leverage the full context window. In practice, we limited context to around 100k tokens for performance, but the expanded window meant the coding agent could load multiple files and lengthy instructions simultaneously without issue.
+-   **Google's Gemini 2.0 Pro** as the Specialist coding agent(s). This model, in experimental phase, with an up to 2M token context, was run in a "thinking" mode that outputs its reasoning steps while coding. Here again, we used OpenRouter's proxy to bypass strict rate limits and leverage the full context window. This model is the most economical, as it's free while in experimental phase.
 
 These model choices reflect what was available as cutting-edge: Claude for coordination and planning, and Gemini for heavy-duty coding with vast context. We also aimed to test vendor-agnostic integration by using one model from Anthropic and one from Google. The orchestrator (Claude) would read the project instructions and break work into tasks, while one or more developer agents (Gemini instances) implemented code for those tasks. Communication between agents was facilitated by Roo/Runic's mechanism: agents wrote to and read from specified markdown files serving as a **shared memory**, as per Runic's design.
 
-**Project Undertaken:** We selected a moderately complex project representative of an enterprise web application to push the limits of multi-agent parallelism. The project was a web platform with multiple components and integration points. In particular, it included the following concurrent engineering tracks:
+The authors aknowledge many other models were available, and new ones appear every day. Like DeepSeek R1, X's Grok 2, OpenAI's o3 Mini and GPT 4.5 Preview, local Llama and Qwen, and much more, thant cannot all be tested.
+
+**Project Undertaken:** We selected a moderately complex project representative of an enterprise web application to push the limits of multi-agent parallelism. The project was a B2B PaaS aiming at small and medium businesses, worldwide, with multiple components and integration points. In particular, it included the following concurrent engineering tracks:
 
 -   **Account Management:** Implement user registration, login, profile management with role-based access control.
 -   **Customer Support Module:** Include a support ticket system where customers can create tickets and support agents can respond.
 -   **Email Notifications:** Integrate an email service to send notifications (welcome emails, password resets, ticket updates).
--   **Google Ads Integration:** Connect to the Google Ads API to pull advertising campaign data for analytics within our app.
+-   **Google Ads Integration:** Connect to the Google Ads API to push advertising campaigns dynamically, based on the latest content.
 -   **Internationalization (i18n):** Support multiple languages throughout the UI, with a mechanism to load locale files.
--   **Kubernetes Deployment Client:** Provide scripts or a module to help deploy the app on a Kubernetes cluster (generating YAML configs).
--   **QStash Integration:** Use the QStash service (a task queue API) to schedule background jobs for certain features (like sending emails or syncing ads data periodically).
+-   **Kubernetes Deployment Client:** Provide scripts or a module to help deploy apps on a Kubernetes cluster (generating YAML configs).
+-   **QStash Integration:** Use the QStash service (a task queue API) to schedule background jobs for certain features (like sending deploying new K8s pods, emails or syncing ads data periodically).
 -   **Subscription Management:** Implement a payment subscription system (with dummy integration to a payment gateway) to handle premium accounts.
 -   **Testing & Monitoring:** Set up a monitoring dashboard and health check endpoints, plus comprehensive test suites.
 -   **UI/UX Improvements:** Apply a design system to the front-end, ensuring a responsive and accessible interface.
@@ -79,7 +81,7 @@ We provided a high-level specification to the Orchestrator agent in an `orchestr
 
 **Observations:**
 
-1.  **Parallel Task Execution:** The Orchestrator (Claude) did successfully break down the project into parallel tasks. It created separate task lists for each major track (account, support, notifications, etc.) almost immediately, and spawned a specialist agent for each. These tracks (Account Management, Customer Support, Email Notifications, Google Ads Integration, etc.) were development workstreams for the web application project being built, not components of the Runic framework itself. This distinction is important: Runic is the orchestration framework, while these tracks represent the subject matter of the experiment—a complex web application with multiple features.
+1.  **Parallel Task Execution:** The Orchestrator did successfully break down the project into parallel tasks. It created separate task lists for each major track (account, support, notifications, etc.) almost immediately, and spawned a specialist agent for each. These tracks (Account Management, Customer Support, Email Notifications, Google Ads Integration, etc.) were development workstreams for the web application project being built, not components of the Runic framework itself. This distinction is important: Runic is the orchestration framework, while these tracks represent the subject matter of the experiment—a complex web application with multiple features.
 
     At one point, we had 5 specialist agents coding in parallel on different modules of the web application. For example, one agent was building the authentication REST API while another simultaneously worked on the email sending module. This parallelism led to very fast initial development of skeleton features. We observed the orchestrator also assigning some agents to higher-priority tasks when needed – e.g., when the Ads Integration track was lagging, it spun up an extra agent to assist on that track.
     
