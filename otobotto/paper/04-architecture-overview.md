@@ -1,20 +1,20 @@
 ## 4. Architecture Overview
 
-Ōtobotto's architecture is designed to mirror proven software project management techniques while adapting them to an AI-native context. It follows a hierarchical **project decomposition** and execution approach that maintains coherence from high-level objectives down to individual implementation tasks. Fig. 1 provides a high-level overview of the conceptual layers in Ōtobotto, from strategic planning to execution, and how they interface with the agent network and human oversight:
+Otobotto's architecture is designed to mirror proven software project management techniques while adapting them to an AI-native context. It follows a hierarchical **project decomposition** and execution approach that maintains coherence from high-level objectives down to individual implementation tasks. Fig. 1 provides a high-level overview of the conceptual layers in Otobotto, from strategic planning to execution, and how they interface with the agent network and human oversight:
 
-**Figure 1: Ōtobotto hierarchical project breakdown and execution environment.** Higher-level goals (Vision, Objectives, Epics) flow down to specific tasks and tests, which are executed by the agent network. The agent swarm (bottom right) interacts with memory systems and version control. Human oversight (HITL) plugs in at strategic decision points (e.g., refining Objectives or reviewing Milestones) and can intervene in the agent loop as needed.
+**Figure 1: Otobotto hierarchical project breakdown and execution environment.** Higher-level goals (Vision, Objectives, Epics) flow down to specific tasks and tests, which are executed by the agent network. The agent swarm (bottom right) interacts with memory systems and version control. Human oversight (HITL) plugs in at strategic decision points (e.g., refining Objectives or reviewing Milestones) and can intervene in the agent loop as needed.
 
 [DIAGRAM-Fig-1]
 
 In this layered breakdown, strategic planning starts with a **Vision** (the overall mission or product vision for the software) and is refined into concrete **Objectives** that capture high-level goals aligned with business value. These are further decomposed into **Epics/Features** – major feature sets or modules. At the tactical level, Epics yield detailed **User Stories** or requirements that define behavior from an end-user perspective, along with acceptance criteria. The implementation layer takes stories and generates specific **Tasks** (work items) and finer-grained **Subtasks** needed to realize each story. In parallel, dedicated agents also generate **Test Cases** for stories and tasks, embodying a test-driven development approach (tests are planned alongside or even before code).
 
-To execute these tasks, Ōtobotto employs an **Agent Network** (Section 4.2) – a collection of AI agents each specialized in certain roles. The agent network operates within an **Execution Environment** that provides shared resources: a persistent memory store, a knowledge base of documentation and prior code, and integration with a Git version control repository (for code commits, branches, pull requests, etc.). As illustrated in Fig. 1, the Agents interact bidirectionally with these resources. For example, a developer agent fetches context from memory and writes code to the version control system; a documentation agent reads from the knowledge base and commits documentation to Git.
+To execute these tasks, Otobotto employs an **Agent Network** (Section 4.2) – a collection of AI agents each specialized in certain roles. The agent network operates within an **Execution Environment** that provides shared resources: a persistent memory store, a knowledge base of documentation and prior code, and integration with a Git version control repository (for code commits, branches, pull requests, etc.). As illustrated in Fig. 1, the Agents interact bidirectionally with these resources. For example, a developer agent fetches context from memory and writes code to the version control system; a documentation agent reads from the knowledge base and commits documentation to Git.
 
 Finally, **Human-in-the-Loop (HITL)** integration points allow human engineers or managers to oversee and guide the process. In Fig. 1, HITL is connected to Strategic Objectives and Milestones – meaning humans might review or adjust the objectives and validate milestone completion criteria – and also connected to the agent network (enabling on-demand consultation or approval for certain changes). This shows that while the AI swarm handles day-to-day development autonomously, humans set the high-level direction and can intervene for critical decisions or quality gates.
 
 ### 4.1 Vision-Driven Development and Orchestration
 
-At the heart of Ōtobotto is a fundamental principle of **Vision-Driven Development** that guides all system operations. Unlike traditional AI coding assistants that respond to incremental prompts or requirements, Ōtobotto operates under the guidance of a comprehensive high-level vision and explicit objectives that cascade through all development activities. This approach ensures that even as multiple agents work independently on different aspects of the system, they remain aligned with overarching goals and maintain architectural coherence.
+At the heart of Otobotto is a fundamental principle of **Vision-Driven Development** that guides all system operations. Unlike traditional AI coding assistants that respond to incremental prompts or requirements, Otobotto operates under the guidance of a comprehensive high-level vision and explicit objectives that cascade through all development activities. This approach ensures that even as multiple agents work independently on different aspects of the system, they remain aligned with overarching goals and maintain architectural coherence.
 
 The **AI Project Lead** agent plays a critical role in this process by:
 - Translating product vision and business requirements into technical objectives and architectural considerations
@@ -35,7 +35,7 @@ The decentralized swarm coordination protocol works through several key mechanis
 
 2. **Shared Contract Definitions**: Agents coordinate through formal interface contracts rather than ad-hoc communication. These contracts define API specifications, data schemas, and behavior expectations that agents must conform to. When building related components, agents independently implement their portions according to these contracts without requiring constant consultation. For example, a frontend agent and backend agent can simultaneously implement their respective sides of an API by following a preestablished contract.
 
-3. **Dynamic Role Assumption**: Unlike systems with static roles, Ōtobotto agents can dynamically assume different roles based on project needs. The protocol includes a role negotiation mechanism where agents can:
+3. **Dynamic Role Assumption**: Unlike systems with static roles, Otobotto agents can dynamically assume different roles based on project needs. The protocol includes a role negotiation mechanism where agents can:
    - Propose taking on specialized roles when they identify needs
    - Request assistance from other agents with specific expertise
    - Temporarily form "tiger teams" to solve complex problems
@@ -53,17 +53,17 @@ The decentralized swarm coordination protocol works through several key mechanis
    - Integration testing cycles that validate cross-component compatibility
    - Architecture decision records that all agents must acknowledge before proceeding
 
-This coordination protocol enables true parallelism while maintaining coherence, representing a significant advancement over both centralized orchestration models (which create bottlenecks) and sequential role pipelines (which limit concurrency). By allowing agents to work autonomously yet remain aligned through lightweight coordination mechanisms, Ōtobotto can scale to dozens or even hundreds of agents working concurrently without exponential growth in coordination overhead.
+This coordination protocol enables true parallelism while maintaining coherence, representing a significant advancement over both centralized orchestration models (which create bottlenecks) and sequential role pipelines (which limit concurrency). By allowing agents to work autonomously yet remain aligned through lightweight coordination mechanisms, Otobotto can scale to dozens or even hundreds of agents working concurrently without exponential growth in coordination overhead.
 
 Concretely, the Orchestration Layer consists of: (a) an **Orchestrator Agent** (often a specialized LLM like an advanced planning model) that interprets project objectives and current status to create or adjust a project plan; (b) a set of coordination mechanisms like event queues, task boards, and messaging channels that agents use to signal completion of tasks or request input; and (c) a global "clock" or cycle system that synchronizes rounds of planning and integration (though agents operate asynchronously for the most part, periodic sync points ensure consistency, much like sprint boundaries in Agile).
 
-The orchestrator agent begins with extensive planning and architecture design akin to infrastructure projects, establishing documented goals and tracking mechanisms. Unlike some multi-agent implementations, which required manual prompting for agent spawning, Ōtobotto's orchestrator fully automates this process. It reads the high-level project specification (vision, objectives, user stories) and breaks it down into tracks and subtasks that can be assigned to specialist agents. It continually updates a dynamic task graph, reorganizing tracks as needed - splitting large tracks into specialized sub-tracks when complexity increases, merging tracks when opportunities for consolidation arise, or creating new tracks for emerging requirements. The orchestrator monitors overall progress and project health through metrics like code quality scores and task completion rates. When bottlenecks emerge - such as multiple tasks blocked on a dependency - it can allocate additional agents or spawn new specialist roles. This adaptive tracking enables the swarm to maintain optimal parallelism while preventing cognitive overload.
+The orchestrator agent begins with extensive planning and architecture design akin to infrastructure projects, establishing documented goals and tracking mechanisms. Unlike some multi-agent implementations, which required manual prompting for agent spawning, Otobotto's orchestrator fully automates this process. It reads the high-level project specification (vision, objectives, user stories) and breaks it down into tracks and subtasks that can be assigned to specialist agents. It continually updates a dynamic task graph, reorganizing tracks as needed - splitting large tracks into specialized sub-tracks when complexity increases, merging tracks when opportunities for consolidation arise, or creating new tracks for emerging requirements. The orchestrator monitors overall progress and project health through metrics like code quality scores and task completion rates. When bottlenecks emerge - such as multiple tasks blocked on a dependency - it can allocate additional agents or spawn new specialist roles. This adaptive tracking enables the swarm to maintain optimal parallelism while preventing cognitive overload.
 
 A critical function of the orchestration layer is to manage **dependencies and knowledge flow**. When one agent produces an output (say code for module X), the orchestrator makes sure that other agents (like testing or integration agents) are aware of this new output and act on it (run tests, integrate into build, etc.). It routes information: a testing agent's bug report is passed to the coding agent responsible for that component; a documentation agent's query about an API spec can be forwarded to the architect agent who designed it. In sum, the orchestrator ensures the swarm acts in a coordinated, goal-directed manner rather than as isolated AI agents.
 
 ### 4.2 Agent Network
 
-The **Agent Network** is the ensemble of specialized AI agents that carry out the development tasks within Ōtobotto. Each agent is essentially an AI worker instantiated with a specific role, a prompt/profile tuned for that role, and access to the tools and context it needs. We categorize agents into roles analogous to a multidisciplinary development team, for example:
+The **Agent Network** is the ensemble of specialized AI agents that carry out the development tasks within Otobotto. Each agent is essentially an AI worker instantiated with a specific role, a prompt/profile tuned for that role, and access to the tools and context it needs. We categorize agents into roles analogous to a multidisciplinary development team, for example:
 
 - **Architect Agents:** Focus on high-level design and system architecture. At project inception, an Architect agent might decide the overall structure: how to partition the application into services or modules, what design patterns to use, ensuring the design meets the vision. They maintain architecture diagrams and enforce design principles. Throughout development, they review that new components conform to the intended architecture and update design documentation accordingly.
 
@@ -95,21 +95,21 @@ All agents are instructed to produce modular, well-documented code and artifacts
 
 ### 4.3 Knowledge Infrastructure
 
-A critical component for an autonomous development swarm is the **Knowledge Infrastructure** – the systems that store, retrieve, and manage information and context for the agents. Ōtobotto's design acknowledges that LLMs alone, with finite context windows, cannot hold all relevant knowledge in their immediate working memory. Therefore, we implement a combination of **Retrieval-Augmented Generation** and a **Hierarchical Memory System** to serve as the extended memory of the swarm.
+A critical component for an autonomous development swarm is the **Knowledge Infrastructure** – the systems that store, retrieve, and manage information and context for the agents. Otobotto's design acknowledges that LLMs alone, with finite context windows, cannot hold all relevant knowledge in their immediate working memory. Therefore, we implement a combination of **Retrieval-Augmented Generation** and a **Hierarchical Memory System** to serve as the extended memory of the swarm.
 
 #### 4.3.1 Retrieval-Augmented Generation (RAG) System
 
-To support agents with information beyond their immediate context, Ōtobotto implements a Retrieval-Augmented Generation subsystem. This subsystem acts like the project's reference librarian, allowing agents to query relevant documentation, past code, or external resources on the fly.
+To support agents with information beyond their immediate context, Otobotto implements a Retrieval-Augmented Generation subsystem. This subsystem acts like the project's reference librarian, allowing agents to query relevant documentation, past code, or external resources on the fly.
 
 The RAG system comprises multiple stages, illustrated conceptually in Fig. 2 as a pipeline:
 
-**Figure 2: Knowledge retrieval pipeline in Ōtobotto.** Documents and data are ingested and processed into vector embeddings and indexes. Agents' queries go through a retrieval process to fetch relevant context (code snippets, docs, etc.) which is then fed into their prompts.
+**Figure 2: Knowledge retrieval pipeline in Otobotto.** Documents and data are ingested and processed into vector embeddings and indexes. Agents' queries go through a retrieval process to fetch relevant context (code snippets, docs, etc.) which is then fed into their prompts.
 
 [DIAGRAM-Fig-2]
 
 ##### Technical Implementation Considerations
 
-The practical implementation of Ōtobotto's RAG system requires careful selection of technologies and design decisions:
+The practical implementation of Otobotto's RAG system requires careful selection of technologies and design decisions:
 
 **Vector Database Selection:** Several vector storage solutions were evaluated for their performance, scalability, and enterprise features:
 
@@ -147,7 +147,7 @@ Our benchmarks indicate that specialized embedding models can improve retrieval 
 - Multi-stage retrieval (using faster but less accurate methods for initial filtering, followed by more precise reranking) optimizes performance for large codebases.
 - Feedback loops from agent interactions continuously tune retrieval parameters based on which contexts were most useful for completed tasks.
 
-The end-to-end RAG pipeline balances retrieval accuracy with computational efficiency, enabling Ōtobotto to make informed decisions based on comprehensive project knowledge while managing token consumption and response times.
+The end-to-end RAG pipeline balances retrieval accuracy with computational efficiency, enabling Otobotto to make informed decisions based on comprehensive project knowledge while managing token consumption and response times.
 
 - **Knowledge Acquisition:** This is the ingestion phase. Specialized crawler agents or processes gather information from various sources: scanning the web or corporate intranet for relevant API docs, importing existing project documentation or design specs, and accessing private repositories or databases that contain legacy code or requirements. For example, a "Docs Crawler" might fetch the official documentation of a framework the project is using, while an internal data connector might pull in a company's coding guidelines. All these raw texts form the knowledge corpus.
 
@@ -167,7 +167,7 @@ Finally, the knowledge retrieval is also accessible to human team members. In Fi
 
 #### 4.3.2 Hierarchical Memory System and Adaptive Token Optimization
 
-In addition to on-demand retrieval of external knowledge, Ōtobotto needs a structured way to **retain and organize the ongoing state of the project** that the agents themselves generate. We implement a three-tiered Hierarchical Memory system that mirrors short-term, mid-term, and long-term memory, coupled with sophisticated Adaptive Token Optimization techniques to tackle the exponential token consumption challenge that has plagued prior multi-agent systems:
+In addition to on-demand retrieval of external knowledge, Otobotto needs a structured way to **retain and organize the ongoing state of the project** that the agents themselves generate. We implement a three-tiered Hierarchical Memory system that mirrors short-term, mid-term, and long-term memory, coupled with sophisticated Adaptive Token Optimization techniques to tackle the exponential token consumption challenge that has plagued prior multi-agent systems:
 
 - **Operational Memory:** This is a fast, short-term memory for real-time agent collaboration. It includes transient context like the message queue of recent communications, the active working set of files, and any scratchpad state for the current task. Operational memory ensures that when multiple agents are working concurrently, they can see each other's latest changes or requests. For example, if Agent A writes a file `user_service.py`, Agent B can immediately access that content via operational memory (without waiting for a formal commit). This is implemented via an in-memory data store or shared blackboard that agents read/write to, as well as direct file system reads of working directories. Operational memory is akin to the RAM for the swarm's cognition – it holds what is "happening now" in the development process.
 
@@ -177,9 +177,9 @@ In addition to on-demand retrieval of external knowledge, Ōtobotto needs a stru
 
 ##### Adaptive Token Optimization Techniques
 
-To overcome the "token consumption compounds exponentially, not linearly" challenge identified by Zhang et al., Ōtobotto implements several advanced token optimization techniques:
+To overcome the "token consumption compounds exponentially, not linearly" challenge identified by Zhang et al., Otobotto implements several advanced token optimization techniques:
 
-1. **Dynamic Context Window Management**: Rather than loading the entire project context into every agent interaction, Ōtobotto employs dynamic windowing that automatically:
+1. **Dynamic Context Window Management**: Rather than loading the entire project context into every agent interaction, Otobotto employs dynamic windowing that automatically:
    - Identifies and loads only the most relevant code sections for the current task
    - Progressively expands context horizons only when needed for broader understanding
    - Prunes redundant or low-relevance sections from context windows
@@ -199,7 +199,7 @@ To overcome the "token consumption compounds exponentially, not linearly" challe
    - Representing complex algorithms as pseudo-code rather than full implementations
    - Caching frequently used code patterns as named references rather than repeating them
 
-4. **Context Sharing Optimization**: When multiple agents need similar context, Ōtobotto optimizes token usage by:
+4. **Context Sharing Optimization**: When multiple agents need similar context, Otobotto optimizes token usage by:
    - Maintaining a shared context pool that all agents can reference
    - Implementing differential updates where only changes are communicated, not entire contexts
    - Using pointers to shared memory rather than duplicating content in messages
@@ -211,11 +211,11 @@ To overcome the "token consumption compounds exponentially, not linearly" challe
    - Automatically determining the appropriate precision level based on task complexity and agent role
    - Incrementally increasing precision only when lower-precision contexts prove insufficient
 
-Through these adaptive optimization techniques, Ōtobotto can maintain comprehensive understanding of large codebases while dramatically reducing token consumption compared to naive multi-agent systems. Instead of token usage growing exponentially with agent count, our approach keeps it closer to linear, enabling practical deployment of large agent swarms for enterprise-scale projects.
+Through these adaptive optimization techniques, Otobotto can maintain comprehensive understanding of large codebases while dramatically reducing token consumption compared to naive multi-agent systems. Instead of token usage growing exponentially with agent count, our approach keeps it closer to linear, enabling practical deployment of large agent swarms for enterprise-scale projects.
 
 Fig. 3 illustrates these memory tiers and their relationships:
 
-**Figure 3: Hierarchical memory in Ōtobotto.** Operational memory (real-time context) interfaces directly with active agents. Project memory provides persistent storage of code and decisions for the current project. Strategic memory holds long-term accumulated knowledge and patterns that span projects. Humans can interface with project and strategic memory as well.
+**Figure 3: Hierarchical memory in Otobotto.** Operational memory (real-time context) interfaces directly with active agents. Project memory provides persistent storage of code and decisions for the current project. Strategic memory holds long-term accumulated knowledge and patterns that span projects. Humans can interface with project and strategic memory as well.
 
 [DIAGRAM-Fig-3]
 
@@ -227,15 +227,15 @@ The hierarchical memory thus addresses the **continuity challenge** mentioned in
 
 #### 4.3.3 Regulatory Knowledge Base
 
-The regulatory knowledge base is a specialized component of Ōtobotto's memory system designed to ensure all code meets relevant legal and policy requirements. This is maintained as part of Strategic Memory and includes templates and checklists for various industry-specific regulations.
+The regulatory knowledge base is a specialized component of Otobotto's memory system designed to ensure all code meets relevant legal and policy requirements. This is maintained as part of Strategic Memory and includes templates and checklists for various industry-specific regulations.
 
 For example, in banking and financial services, this includes frameworks like SOC2 for security controls, DSP2 for payment services in Europe, and various ISO standards for risk management. In healthcare, HIPAA compliance requirements are stored, including rules for handling protected health information (PHI). For European operations, all GDPR requirements are cataloged, with special attention to data subject rights and processing limitations. French projects might have specific sections on ARCEP/ACPR accreditations.
 
-Domain Expert agents (Section 4.2) leverage this regulatory knowledge base through RAG to ensure compliance during development. Rather than simply reacting to regulatory issues, Ōtobotto proactively suggests and enforces compliance measures based on the project domain and geographical scope, avoiding costly remediation later in the development cycle.
+Domain Expert agents (Section 4.2) leverage this regulatory knowledge base through RAG to ensure compliance during development. Rather than simply reacting to regulatory issues, Otobotto proactively suggests and enforces compliance measures based on the project domain and geographical scope, avoiding costly remediation later in the development cycle.
 
 #### 4.3.4 Dashboard and Observability System
 
-The **Ōtobotto Dashboard** provides comprehensive real-time observability into swarm operations, serving as the primary interface for human stakeholders to monitor, control, and interact with the development process. This KPI-driven approach enables tracking goals and evaluating results through a unified interface.
+The **Otobotto Dashboard** provides comprehensive real-time observability into swarm operations, serving as the primary interface for human stakeholders to monitor, control, and interact with the development process. This KPI-driven approach enables tracking goals and evaluating results through a unified interface.
 
 The dashboard includes several key components:
 
@@ -257,11 +257,11 @@ Project configurations can be modified through the dashboard, with updated brief
 
 ### 4.4 Git Integration and Agile Workflow
 
-One of Ōtobotto's distinguishing features is its **Git-native integration**. Version control is the backbone of modern software collaboration, and we treat it not as an output, but as an integral part of the AI development process. Every code artifact that developer agents produce is saved in a Git repository; every change goes through a commit, and potentially a pull request if it's a significant feature. This means we get for free the benefits of version history, diff tracking, and branch-based isolation of features.
+One of Otobotto's distinguishing features is its **Git-native integration**. Version control is the backbone of modern software collaboration, and we treat it not as an output, but as an integral part of the AI development process. Every code artifact that developer agents produce is saved in a Git repository; every change goes through a commit, and potentially a pull request if it's a significant feature. This means we get for free the benefits of version history, diff tracking, and branch-based isolation of features.
 
 #### 4.4.1 Git-Native Approach in Depth
 
-Unlike existing AI coding systems that either generate code without version control awareness or treat Git as a simple storage mechanism, Ōtobotto deeply integrates Git operations into its development workflow. This integration occurs at multiple levels:
+Unlike existing AI coding systems that either generate code without version control awareness or treat Git as a simple storage mechanism, Otobotto deeply integrates Git operations into its development workflow. This integration occurs at multiple levels:
 
 **Specialized Git Agents and Operations:**
 - **Git Repository Manager Agents** maintain repository structure, branch policies, and access controls
@@ -294,7 +294,7 @@ Unlike existing AI coding systems that either generate code without version cont
    - Code quality metrics tracked across pull requests
 
 **Git as Communication Medium:**
-Ōtobotto uses Git not just for code storage but as a communication channel:
+Otobotto uses Git not just for code storage but as a communication channel:
 - Pull request descriptions become design documents explaining implementation choices
 - Commit messages form a continuous narrative of development decisions
 - Code reviews serve as knowledge transfer mechanisms between agents
@@ -308,40 +308,40 @@ Agents themselves follow a workflow that parallels human teams using GitFlow or 
 
 Fig. 4 depicts a simplified view of this workflow with key stages and artifacts:
 
-**Figure 4: Git-based development and CI/CD workflow in Ōtobotto.** Agents perform task creation, code implementation, testing, code review, documentation, etc., corresponding to typical stages in a development pipeline. Code flows through feature branches to dev to main, with human oversight gates for approval and quality checks.
+**Figure 4: Git-based development and CI/CD workflow in Otobotto.** Agents perform task creation, code implementation, testing, code review, documentation, etc., corresponding to typical stages in a development pipeline. Code flows through feature branches to dev to main, with human oversight gates for approval and quality checks.
 
 [DIAGRAM-Fig-4]
 
 In this schematic, the flow from **Task Creation** to **Main Branch** shows the path of development. For example, when a new user story is ready to implement, an agent (or orchestrator) creates a task and a corresponding feature branch. Code is implemented on that branch, tests are run; a Pull Request is opened to merge into the Dev branch; after code review and any approval gates, it's merged, triggering documentation updates and eventually merging to Main for release.
 
-Ōtobotto's agents handle many of these stages autonomously. Task creation may be done by the orchestrator analyzing the backlog. Code implementation we covered with Dev agents. **Testing** at this stage implies automated test execution – our Testing agents run the test suite on the new code and report results (if a test fails, the PR will not be merged until addressed). **Code Review** is handled by either a specialized Review agent or an Architect/Lead agent that checks the diff for adherence to standards and potential issues (and it may also incorporate human review as part of HITL if configured). **Documentation** agents kick in once code is merged – they update docs corresponding to the changes on the Dev or Main branch (like user-facing changelogs or technical docs).
+Otobotto's agents handle many of these stages autonomously. Task creation may be done by the orchestrator analyzing the backlog. Code implementation we covered with Dev agents. **Testing** at this stage implies automated test execution – our Testing agents run the test suite on the new code and report results (if a test fails, the PR will not be merged until addressed). **Code Review** is handled by either a specialized Review agent or an Architect/Lead agent that checks the diff for adherence to standards and potential issues (and it may also incorporate human review as part of HITL if configured). **Documentation** agents kick in once code is merged – they update docs corresponding to the changes on the Dev or Main branch (like user-facing changelogs or technical docs).
 
 The **Human Oversight** portion in Fig. 4 shows where a human might step in: an Approval Gate on the PR (perhaps requiring a human tech lead to approve any major feature before it's merged), and Quality Checks on the Dev branch (e.g., a QA team manually tests nightly builds – though in our case a QA agent might cover much of this). These are optional based on the autonomy level (Section 6); initially, many gates may be human, and over time as trust grows, some can be automated.
 
-By embedding Git practices, Ōtobotto ensures traceability: every code contribution by an AI agent is logged and can be reviewed later. It also simplifies integration with human teams – humans can interact with the code through the repository as they normally would, opening issues or commenting on PRs to give feedback to the AI agents. Additionally, this means the system's output is always in a **deployable state** (at least on the `dev` or `main` branches), which is crucial for enterprise CI/CD. The swarm essentially produces not just code, but a live codebase under version control with a full history of how it evolved.
+By embedding Git practices, Otobotto ensures traceability: every code contribution by an AI agent is logged and can be reviewed later. It also simplifies integration with human teams – humans can interact with the code through the repository as they normally would, opening issues or commenting on PRs to give feedback to the AI agents. Additionally, this means the system's output is always in a **deployable state** (at least on the `dev` or `main` branches), which is crucial for enterprise CI/CD. The swarm essentially produces not just code, but a live codebase under version control with a full history of how it evolved.
 
 ### 4.5 Testing and Verification Framework
 
-Quality assurance is a linchpin of the Ōtobotto architecture. Given the emphasis that industry leaders like Bret Taylor have placed on verification and correctness for AI-generated code, we designed Ōtobotto so that verification is deeply integrated at every step, rather than a separate afterthought.
+Quality assurance is a linchpin of the Otobotto architecture. Given the emphasis that industry leaders like Bret Taylor have placed on verification and correctness for AI-generated code, we designed Otobotto so that verification is deeply integrated at every step, rather than a separate afterthought.
 
-The testing and verification framework in Ōtobotto operates on multiple levels:
+The testing and verification framework in Otobotto operates on multiple levels:
 
 - **Pre-implementation testing (TDD):** As discussed, testing agents create test cases from requirements before or during coding. This ensures that when developer agents write code, they have explicit targets to satisfy, reducing ambiguity and catching misunderstandings early. The swarm treats a failing test as a trigger for action – a red test is an event that the responsible dev agent must address immediately, similar to a continuous testing environment for humans.
 
-- **Multi-level testing:** Ōtobotto doesn't limit itself to unit tests. It employs unit tests, integration tests (checking interactions between modules), system tests (end-to-end use cases), and even specialized tests like UI tests or performance tests, each possibly handled by different specialist agents. For example, after code implementation, a Testing agent might run unit tests; a QA agent might then run an integration suite; a performance agent could run a load test; and a UI agent might run a headless browser for UI tests. All these results are aggregated.
+- **Multi-level testing:** Otobotto doesn't limit itself to unit tests. It employs unit tests, integration tests (checking interactions between modules), system tests (end-to-end use cases), and even specialized tests like UI tests or performance tests, each possibly handled by different specialist agents. For example, after code implementation, a Testing agent might run unit tests; a QA agent might then run an integration suite; a performance agent could run a load test; and a UI agent might run a headless browser for UI tests. All these results are aggregated.
 
 - **Continuous integration and monitoring:** The DevOps agents set up a CI pipeline (or use existing services) where, upon merges to the dev branch, a full build and test cycle runs in a clean environment. This mimics how human teams use Jenkins, GitHub Actions, etc., but here the agents themselves watch the pipeline. If something fails in CI that wasn't caught locally (perhaps an environment configuration issue), the relevant agent intervenes to fix it. Once code is in Main and deployed, monitoring agents track production performance and error logs, feeding that info back into the system (closing the loop in Fig. 4 and 5 with a feedback arrow to requirements if needed changes are identified).
 
-- **Static analysis and formal verification:** Ōtobotto also leverages tools beyond dynamic tests. Security agents run static analysis (linting, security scanners) on new code. We envision (in future work, see Section 9) integrating formal verification for critical components – e.g., using a theorem prover agent to verify a security protocol implementation matches a formal specification. While not fully in the prototype, the architecture allows such an agent to take a module (like an authentication library) and prove certain properties, feeding back any counterexamples or proof obligations as additional tests or constraints for development agents.
+- **Static analysis and formal verification:** Otobotto also leverages tools beyond dynamic tests. Security agents run static analysis (linting, security scanners) on new code. We envision (in future work, see Section 9) integrating formal verification for critical components – e.g., using a theorem prover agent to verify a security protocol implementation matches a formal specification. While not fully in the prototype, the architecture allows such an agent to take a module (like an authentication library) and prove certain properties, feeding back any counterexamples or proof obligations as additional tests or constraints for development agents.
 
-The net effect is that **code, tests, and verification are co-developed**. By the time code reaches the main branch, it has passed a gauntlet of automated checks. Moreover, the **definition of done** for a task in Ōtobotto always includes the tests passing and any required approvals, so an agent considers a task unfinished until those are green.
+The net effect is that **code, tests, and verification are co-developed**. By the time code reaches the main branch, it has passed a gauntlet of automated checks. Moreover, the **definition of done** for a task in Otobotto always includes the tests passing and any required approvals, so an agent considers a task unfinished until those are green.
 
 We can illustrate the testing & verification cycle in a simplified flow (Fig. 5) that the system iterates on for each feature:
 
-**Figure 5: Simplified test-driven development cycle in Ōtobotto's swarm.** Requirements lead to test specifications; code is implemented to satisfy tests; after all stages of testing and verification (unit, integration, etc.) pass, the feature is deployed, and monitoring feeds back issues for future cycles.
+**Figure 5: Simplified test-driven development cycle in Otobotto's swarm.** Requirements lead to test specifications; code is implemented to satisfy tests; after all stages of testing and verification (unit, integration, etc.) pass, the feature is deployed, and monitoring feeds back issues for future cycles.
 
 [DIAGRAM-Fig-5]
 
 This diagram condenses the process: from Requirements, the agents create test specifications (and design outlines); then coding happens to make those tests pass, with refactoring if needed to improve code; the "All Tests Pass" stage signifies that unit, integration, UI, performance, and security tests (as applicable) are all green; then the feature is deployed and monitored. The feedback loop indicates that any issues discovered in production (or new requirements as a result of seeing the feature in action) are fed back into the next iteration of requirements.
 
-By enforcing these cycles, Ōtobotto aims to produce software that is not only functionally correct, but also robust, secure, and performant. This directly addresses concerns like those raised by Bret Taylor that naive AI coding might produce code with "the same vulnerabilities and flaws" as before. In our approach, any such flaw is intended to be caught by the swarm's internal checks (for example, a security flaw would be flagged by the Security agent's tests or static analysis) and corrected long before deployment.
+By enforcing these cycles, Otobotto aims to produce software that is not only functionally correct, but also robust, secure, and performant. This directly addresses concerns like those raised by Bret Taylor that naive AI coding might produce code with "the same vulnerabilities and flaws" as before. In our approach, any such flaw is intended to be caught by the swarm's internal checks (for example, a security flaw would be flagged by the Security agent's tests or static analysis) and corrected long before deployment.

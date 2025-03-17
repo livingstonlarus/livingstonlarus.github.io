@@ -1,12 +1,12 @@
 ## 6. Human-in-the-Loop and Progressive Autonomy
 
-A central design goal of Ōtobotto is to integrate AI into existing teams and workflows in a way that **augments rather than alienates** human developers. We achieve this through an adaptive human-in-the-loop strategy and a progressive autonomy model.
+A central design goal of Otobotto is to integrate AI into existing teams and workflows in a way that **augments rather than alienates** human developers. We achieve this through an adaptive human-in-the-loop strategy and a progressive autonomy model.
 
 ### 6.1 Adaptive Human-in-the-Loop Strategy
 
 We adopt an **adaptive human-in-the-loop (HITL) strategy**, which dynamically adjusts the level of human involvement based on context and the system's confidence in its work. Early in a project or for high-risk decisions, human approval is required; as the system demonstrates competence, it gains more autonomy. Concretely:
 
-- In the **initial phases** or for critical components, Ōtobotto seeks human review and approval frequently. For example, the Architect agent might draft an architecture which a human architect must sign off on before implementation proceeds. Security-sensitive code (say, an encryption module) might be flagged for mandatory human code review regardless of test results.
+- In the **initial phases** or for critical components, Otobotto seeks human review and approval frequently. For example, the Architect agent might draft an architecture which a human architect must sign off on before implementation proceeds. Security-sensitive code (say, an encryption module) might be flagged for mandatory human code review regardless of test results.
 
 - As the system proves itself (e.g., consistently passing tests, meeting deadlines, and aligning with human expectations), it is granted more independence in those areas. For instance, if over several features the Dev agents produce code that the human reviewer always approves with minimal changes, the threshold for requiring human review can be raised (perhaps only every Nth feature or only if certain risk factors are present).
 
@@ -14,7 +14,7 @@ We adopt an **adaptive human-in-the-loop (HITL) strategy**, which dynamically ad
 
 #### 6.1.1 Sophisticated Confidence Scoring Mechanism
 
-The confidence scoring mechanism is a critical component that differentiates Ōtobotto from other AI systems. Unlike simplistic approaches that rely solely on language model probabilities, Ōtobotto employs a sophisticated multi-factor confidence assessment:
+The confidence scoring mechanism is a critical component that differentiates Otobotto from other AI systems. Unlike simplistic approaches that rely solely on language model probabilities, Otobotto employs a sophisticated multi-factor confidence assessment:
 
 **Sources of Confidence Data:**
 - **Model Probability Analysis**: Base confidence derived from language model token prediction probabilities, but normalized and calibrated based on empirical performance data
@@ -75,9 +75,9 @@ It's worth noting that HITL is not just about catching errors – it's also abou
 
 ### 6.2 Progressive Autonomy Model
 
-The end goal is for Ōtobotto to operate with minimal human intervention on routine tasks, with humans focusing on only the high-level guidance or very tricky problems. We therefore implement a **progressive autonomy model** that explicitly tracks the system's autonomy level and criteria for advancing that autonomy.
+The end goal is for Otobotto to operate with minimal human intervention on routine tasks, with humans focusing on only the high-level guidance or very tricky problems. We therefore implement a **progressive autonomy model** that explicitly tracks the system's autonomy level and criteria for advancing that autonomy.
 
-Unlike current AI coding assistants which operate in a binary mode (either requiring constant human oversight like GitHub Copilot or attempting complete autonomy like some experimental agents), Ōtobotto introduces a granular approach to autonomous operation inspired by the automotive industry's levels of driving automation. This carefully calibrated progression builds trust incrementally while maintaining quality standards.
+Unlike current AI coding assistants which operate in a binary mode (either requiring constant human oversight like GitHub Copilot or attempting complete autonomy like some experimental agents), Otobotto introduces a granular approach to autonomous operation inspired by the automotive industry's levels of driving automation. This carefully calibrated progression builds trust incrementally while maintaining quality standards.
 
 We define several "autonomy levels" that provide a clear roadmap for transitioning from human-led development to AI-led development:
 
@@ -103,7 +103,7 @@ Our experiments (Section 7.3) gave an early indication that even Level 2 autonom
 
 ### 6.3 Continuity Management and Workflow Integration
 
-Another human-centric consideration is fitting Ōtobotto into the rhythms of human work. We implemented features for **continuity management** to ensure the human-AI collaboration is smooth and non-disruptive:
+Another human-centric consideration is fitting Otobotto into the rhythms of human work. We implemented features for **continuity management** to ensure the human-AI collaboration is smooth and non-disruptive:
 
 - **Work Rhythms:** The orchestrator is aware of human working hours (which can be configured). It will schedule or batch non-critical interactions to align with when humans are available (e.g., it won't send an approval request at 3am, it will wait and batch it by morning). It also uses off-hours (nights/weekends) for work that doesn't require immediate human input – e.g., running extra test suites, refactoring code, preparing documentation. This means the AI can be productive 24/7, but in a way that when humans come online, there is a clear summary waiting rather than a chaotic log of overnight activity.
 
@@ -113,19 +113,19 @@ Another human-centric consideration is fitting Ōtobotto into the rhythms of hum
 
 - **Fail-safe Modes:** If something goes really off the rails (say, tests are consistently failing and the agents are not fixing it, or a model starts hallucinating consistently), the system can alert humans and pause certain activities. The human can choose to roll back to a known good state (thanks to the Git history) and then either correct the course or give new instructions. In our design, human operators can always press a "stop" button, which gracefully halts new task assignments and lets the current tasks conclude, so they can take stock. This is analogous to an emergency brake – seldom used, but important for trust that it exists.
 
-By addressing these aspects, we aim for Ōtobotto to be not just an automation tool, but a **collaborative partner** in a software team. It provides labor and consistency, while humans provide direction, insight, and final validation. Over time, as the comfort level grows, humans can step back more and more, focusing on creative and strategic work while the AI swarm handles the heavy lifting of coding, testing, and integration.
+By addressing these aspects, we aim for Otobotto to be not just an automation tool, but a **collaborative partner** in a software team. It provides labor and consistency, while humans provide direction, insight, and final validation. Over time, as the comfort level grows, humans can step back more and more, focusing on creative and strategic work while the AI swarm handles the heavy lifting of coding, testing, and integration.
 
 ### 6.4 Long-term Maintenance and Post-Release Evolution
 
-Ōtobotto's role extends well beyond initial development to encompass the entire software lifecycle, including long-term maintenance and continuous evolution after release. This ongoing support is critical for enterprise software, where applications often require years of maintenance, feature enhancements, and adaptation to changing requirements.
+Otobotto's role extends well beyond initial development to encompass the entire software lifecycle, including long-term maintenance and continuous evolution after release. This ongoing support is critical for enterprise software, where applications often require years of maintenance, feature enhancements, and adaptation to changing requirements.
 
 #### 6.4.1 Continuous Support and Maintenance
 
-Once software is deployed to production, Ōtobotto seamlessly transitions to maintenance mode, providing several key support functions:
+Once software is deployed to production, Otobotto seamlessly transitions to maintenance mode, providing several key support functions:
 
-- **User Support System Integration:** Ōtobotto integrates with modern ticketing systems (such as Jira, Zendesk, or ServiceNow) to automatically process user-reported issues. Support agents monitor incoming tickets, categorize them (bug, feature request, user error, etc.), prioritize based on impact, and route them to appropriate specialist agents. For common user errors, support agents can generate documentation or tutorial content to help prevent similar issues in the future.
+- **User Support System Integration:** Otobotto integrates with modern ticketing systems (such as Jira, Zendesk, or ServiceNow) to automatically process user-reported issues. Support agents monitor incoming tickets, categorize them (bug, feature request, user error, etc.), prioritize based on impact, and route them to appropriate specialist agents. For common user errors, support agents can generate documentation or tutorial content to help prevent similar issues in the future.
 
-- **Bug Triage and Resolution:** When bugs are reported, diagnostic agents analyze the issue, attempt to reproduce it in test environments, and identify the root cause. The system maintains a knowledge base of common error patterns, enabling it to recognize similarities with previously resolved issues. Depending on severity and the autonomy level granted, Ōtobotto can either automatically deploy fixes for critical issues or prepare patches for human review before deployment.
+- **Bug Triage and Resolution:** When bugs are reported, diagnostic agents analyze the issue, attempt to reproduce it in test environments, and identify the root cause. The system maintains a knowledge base of common error patterns, enabling it to recognize similarities with previously resolved issues. Depending on severity and the autonomy level granted, Otobotto can either automatically deploy fixes for critical issues or prepare patches for human review before deployment.
 
 - **Performance Monitoring:** Monitoring agents continuously track system performance metrics, analyzing trends to identify potential bottlenecks or degradations before they impact users. When performance issues are detected, optimization agents generate improvement proposals that can be implemented incrementally without disrupting core functionality.
 
@@ -133,24 +133,24 @@ Once software is deployed to production, Ōtobotto seamlessly transitions to mai
 
 #### 6.4.2 Adaptive Evolution
 
-Beyond mere maintenance, Ōtobotto facilitates continuous software evolution to meet changing business needs and technical requirements:
+Beyond mere maintenance, Otobotto facilitates continuous software evolution to meet changing business needs and technical requirements:
 
-- **Requirement Processing Pipeline:** Ōtobotto continuously processes feedback from various channels (user surveys, support tickets, stakeholder requests, usage analytics) to identify patterns and extract potential requirements. These insights are organized into a roadmap with suggested priorities based on business value, implementation complexity, and strategic alignment. This provides stakeholders with data-driven recommendations for future development while allowing human decision-makers to maintain strategic control.
+- **Requirement Processing Pipeline:** Otobotto continuously processes feedback from various channels (user surveys, support tickets, stakeholder requests, usage analytics) to identify patterns and extract potential requirements. These insights are organized into a roadmap with suggested priorities based on business value, implementation complexity, and strategic alignment. This provides stakeholders with data-driven recommendations for future development while allowing human decision-makers to maintain strategic control.
 
-- **Backward Compatibility Management:** When implementing new features or architecture changes, Ōtobotto carefully analyzes potential impacts on existing functionality, APIs, and data structures. It automatically generates compatibility layers where necessary and maintains comprehensive migration documentation for users or integrated systems affected by changes.
+- **Backward Compatibility Management:** When implementing new features or architecture changes, Otobotto carefully analyzes potential impacts on existing functionality, APIs, and data structures. It automatically generates compatibility layers where necessary and maintains comprehensive migration documentation for users or integrated systems affected by changes.
 
-- **Technical Debt Reduction:** Unlike human teams that may postpone refactoring due to time constraints, Ōtobotto can allocate resources to continuously address technical debt during lower-activity periods. The system maintains an inventory of improvement opportunities (identified during development or maintenance) and systematically addresses them based on risk-benefit analysis, gradually improving the codebase quality over time.
+- **Technical Debt Reduction:** Unlike human teams that may postpone refactoring due to time constraints, Otobotto can allocate resources to continuously address technical debt during lower-activity periods. The system maintains an inventory of improvement opportunities (identified during development or maintenance) and systematically addresses them based on risk-benefit analysis, gradually improving the codebase quality over time.
 
 - **Documentation Currency:** Documentation agents continuously update all levels of documentation (from API references to user guides) as the software evolves, ensuring documentation never becomes outdated. They can generate release notes highlighting changes relevant to different audience types (end-users, administrators, developers) and update migration guides for major version transitions.
 
 #### 6.4.3 Knowledge Continuity
 
-A significant challenge in long-lived software projects is maintaining knowledge continuity when human team members change. Ōtobotto addresses this through:
+A significant challenge in long-lived software projects is maintaining knowledge continuity when human team members change. Otobotto addresses this through:
 
 - **Comprehensive Knowledge Preservation:** The system retains complete context about design decisions, implementation trade-offs, and historical constraints in its strategic memory. This institutional knowledge persists regardless of human team turnover, allowing new team members to quickly understand why certain approaches were taken.
 
-- **Contextual Onboarding:** When new human team members join, Ōtobotto can provide tailored onboarding materials explaining the system architecture, key design patterns, and ongoing initiatives relevant to their role. This accelerates the ramp-up period for new team members and ensures consistent understanding of project history.
+- **Contextual Onboarding:** When new human team members join, Otobotto can provide tailored onboarding materials explaining the system architecture, key design patterns, and ongoing initiatives relevant to their role. This accelerates the ramp-up period for new team members and ensures consistent understanding of project history.
 
-- **Experiential Learning:** Unlike static documentation, Ōtobotto accumulates operational experience with the software in production, learning from incidents, usage patterns, and performance characteristics. This experiential knowledge improves maintenance quality over time, as the system becomes increasingly familiar with the specific deployment context and user behaviors.
+- **Experiential Learning:** Unlike static documentation, Otobotto accumulates operational experience with the software in production, learning from incidents, usage patterns, and performance characteristics. This experiential knowledge improves maintenance quality over time, as the system becomes increasingly familiar with the specific deployment context and user behaviors.
 
-By extending its capabilities across the entire software lifecycle, Ōtobotto transforms from a development tool into a comprehensive software lifecycle management system. This addresses a common gap in AI development tools that focus primarily on initial code generation without considering the much longer maintenance and evolution phases that typically account for 60-80% of total software costs.
+By extending its capabilities across the entire software lifecycle, Otobotto transforms from a development tool into a comprehensive software lifecycle management system. This addresses a common gap in AI development tools that focus primarily on initial code generation without considering the much longer maintenance and evolution phases that typically account for 60-80% of total software costs.
