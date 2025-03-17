@@ -21,8 +21,8 @@ While LLMs have shown promise in code generation, several critical limitations p
 3. **Sequential Agent Limitations**: Early multi-agent coding systems (e.g., AutoGPT, BabyAGI) operate primarily sequentially rather than concurrently:
    - Systems often employ a **single orchestrator bottleneck** where one agent must coordinate all activities
    - **Rigid role pipelines** (like in MetaGPT) enforce strict sequential handoffs rather than fluid parallel collaboration
-   - **Basic agent spawning** requiring manual orchestration of specialized agents (as in Runic)
-   - **Kubernetes pod management overhead** when scaling multiple agents, as observed in our Runic experiments
+   - **Basic agent spawning** requiring manual orchestration of specialized agents
+   - **Kubernetes pod management overhead** when scaling multiple agents
 
 4. **Insufficient Quality Assurance Integration**: Existing autonomous coding systems treat testing and verification as afterthoughts rather than fundamental principles:
    - **Limited test-driven development** practices built into the development workflow
@@ -34,7 +34,7 @@ While LLMs have shown promise in code generation, several critical limitations p
    - **Limited pull request lifecycle automation** for streamlined review processes
    - **Weak integration with CI/CD pipelines** for continuous verification and deployment
 
-Our experiments with Runic revealed many of these limitations firsthand. While it implemented basic agent spawning and a memory bank, Runic still relied on sequential coordination and lacked the sophisticated memory architecture needed for enterprise-scale development. In these systems, often one agent generates tasks and waits while another executes them, which is parallel only in a coarse sense but not a true swarm working concurrently. This leads to inefficiencies and missed opportunities for agents to help or verify each other's work in real-time.
+Experiments with multi-agent systems revealed many of these limitations firsthand. While some systems implemented basic agent spawning and a memory bank, they still relied on sequential coordination and lacked the sophisticated memory architecture needed for enterprise-scale development. In these systems, often one agent generates tasks and waits while another executes them, which is parallel only in a coarse sense but not a true swarm working concurrently. This leads to inefficiencies and missed opportunities for agents to help or verify each other's work in real-time.
 
 Another key limitation is **verification and quality assurance**. An AI may generate syntactically correct code that passes basic tests but still harbor subtle bugs, security vulnerabilities, or fail to meet certain requirements – especially if those checks are not integrated into the generation process. Without an integrated testing and review mechanism, AI-generated code might accelerate development at the expense of reliability. For enterprise adoption, this trade-off is unacceptable; any automated system must produce code that meets or exceeds the quality of human engineers using established best practices.
 
