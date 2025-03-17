@@ -1,7 +1,0 @@
-# Background and Motivation
-
-The rapid evolution of AI technologies has created both opportunities and challenges for software development. Traditional tools struggle to keep pace with the scale and complexity of modern enterprise projects, often requiring extensive human intervention. This inefficiency, coupled with growing regulatory and sustainability demands, motivates the development of Ōtobotto—a system designed to bridge these gaps.
-
-A core driver for Ōtobotto is its alignment with **Environmental, Social, and Governance (ESG) principles**. By embedding sustainability metrics into its key performance indicators (KPIs), Ōtobotto ensures that projects are not only technically proficient but also environmentally responsible and socially inclusive. This commitment positions it as a pioneer in responsible AI-driven development, aligning with global sustainability frameworks and appealing to organizations prioritizing ESG compliance.
-
-Ōtobotto builds on lessons from tools like Grafana, Looker Studio, and Tableau, which provide dashboard solutions for tracking metrics. However, these are examples, not an exhaustive list—Ōtobotto’s flexibility allows integration with various third-party tools to monitor progress and sustainability. This background underscores the need for a system that combines technical innovation with ethical responsibility, setting the stage for Ōtobotto’s unique contributions.

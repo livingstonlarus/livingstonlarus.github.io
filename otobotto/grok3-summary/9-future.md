@@ -1,3 +1,0 @@
-# Future Work
-
-Ōtobotto’s roadmap includes **recursive self-improvement**, where it uses its own capabilities to enhance its architecture. This paper could serve as the initial project brief, initiating a meta-loop of continuous refinement. Other priorities include expanding multimodality support, optimizing ESG metrics, and scaling deployment options to meet global enterprise demands. These efforts aim to solidify Ōtobotto’s role as a leader in autonomous, sustainable software engineering.
